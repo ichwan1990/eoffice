@@ -1,8 +1,7 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class surat_out_m extends CI_Model
-{
+class surat_out_m extends CI_Model {
 
 	var $table = "tb_surat_keluar";
 
@@ -13,26 +12,22 @@ class surat_out_m extends CI_Model
 		$this->db->join('tb_kategori_surat', 'tb_surat_keluar.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_tujuan_surat', 'tb_surat_keluar.tujuan = tb_tujuan_surat.id_tujuan');
 		$this->db->join('tb_jabatan', 'tb_surat_keluar.pengolah = tb_jabatan.kode_surat', 'left');
-		if ($id != null) {
+		if($id != null) {
 			$this->db->where('id_surat_out', $id);
-		}
+		} 
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
 		return $query;
 	}
-
-	public function get2($id = null)
+	
+		public function get2($id = null)
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('tb_kategori_surat', 'tb_surat_keluar.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_tujuan_surat', 'tb_surat_keluar.tujuan = tb_tujuan_surat.id_tujuan');
 		$this->db->join('tb_jabatan', 'tb_surat_keluar.pengolah = tb_jabatan.kode_surat', 'left');
-
-		$this->db->where('user_input', $this->session->userdata('iduser'));
-		if ($id != null) {
-			//$this->db->where('id_surat_out', $id);
-		}
+	    $this->db->where('user_input', $this->session->userdata('iduser'));
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
 		return $query;
@@ -45,7 +40,7 @@ class surat_out_m extends CI_Model
 		$this->db->join('tb_kategori_surat', 'tb_surat_keluar.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_tujuan_surat', 'tb_surat_keluar.tujuan = tb_tujuan_surat.id_tujuan');
 		$this->db->join('tb_jabatan', 'tb_surat_keluar.pengolah = tb_jabatan.kode_surat', 'left');
-		$this->db->where('tgl_surat BETWEEN "' . $tgl1 . '" and "' . $tgl2 . '"');
+		$this->db->where('tgl_surat BETWEEN "'.$tgl1. '" and "'.$tgl2.'"');
 		$this->db->order_by('tgl_surat', 'asc');
 		$query = $this->db->get();
 		return $query;
@@ -53,14 +48,14 @@ class surat_out_m extends CI_Model
 
 	function no_agenda0()
 	{
-		$query = $this->db->query('SELECT MAX(no_agenda) AS no FROM ' . $this->table);
+		$query = $this->db->query('SELECT MAX(no_agenda) AS no FROM '.$this->table);
 		return $query;
 	}
-
-	function no_agenda()
+	
+	function no_agenda() 
 	{
 		$tahun = date('Y');
-		$this->db->select('RIGHT(tb_surat_keluar.no_agenda,4) as no_agenda', false);
+		$this->db->select('RIGHT(tb_surat_keluar.no_agenda,3) as no_agenda', false);
 		$this->db->order_by('no_agenda', 'DESC');
 		$this->db->where('LEFT(tgl_surat,4)', $tahun);
 		$this->db->limit(1);
@@ -71,7 +66,6 @@ class surat_out_m extends CI_Model
 		} else {
 			$kode = 1;
 		}
-
 		$kodetampil = str_pad($kode, 3, "0", STR_PAD_LEFT);
 		return $kodetampil;
 	}
@@ -81,9 +75,9 @@ class surat_out_m extends CI_Model
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->where('no_agenda', $no);
-		if ($id != null) {
+		if($id != null) {
 			$this->db->where('id_surat_out !=', $id);
-		}
+		} 
 		$query = $this->db->get();
 		return $query;
 	}
@@ -104,12 +98,12 @@ class surat_out_m extends CI_Model
 			'tgl_catat' => date('Y-m-d'),
 			'user_input' => $this->session->userdata('iduser')
 		);
-		$this->db->insert($this->table, $param);
+        $this->db->insert($this->table, $param);
 	}
 
 	public function edit($data)
 	{
-		if ($data['file'] == '') {
+		if($data['file'] == '') {
 			$param = array(
 				'no_agenda' => $data['no_agenda'],
 				'kategori' => $data['kategori'],
@@ -140,12 +134,13 @@ class surat_out_m extends CI_Model
 			);
 		}
 		$this->db->where('id_surat_out', $data['id']);
-		$this->db->update($this->table, $param);
+        $this->db->update($this->table, $param);
 	}
 
 	public function del($id)
 	{
 		$this->db->where('id_surat_out', $id);
-		$this->db->delete($this->table);
+        $this->db->delete($this->table);
 	}
+
 }

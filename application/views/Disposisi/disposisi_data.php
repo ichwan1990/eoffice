@@ -37,7 +37,12 @@
 							} else if ($surat->sifat_surat == 'Penting'){
 							    echo '<b><a class="btn btn-sm btn-danger">'.$surat->sifat_surat .'</a></b>';
 							}
-							?>
+                            
+							if($surat->file_surat == '') {
+								echo '<br><b>File</b> : <br><i>Tidak ada file yang diupload</i>';
+							} else {
+								echo '<br><b>File</b> : <br><a href="../uploads/surat_masuk/'.$surat->file_surat.'" target="_blank" class="btn btn-sm btn-success no-print">Baca</a>';
+							} ?>
 							</td>
 						</tr>
 					</thead>
@@ -46,24 +51,25 @@
 			<div class="x_title no-print">
 				<div class="pull-left">
 					<?php
-					if($this->session->userdata('level_jabatan') != 2 && $this->session->userdata('level_user') != 1) { ?>
-						<a href="<?=current_url().'?h=1'?>" class="btn btn-sm btn-primary">History Disposisi Atasan</a> 
+					//if($this->session->userdata('level_jabatan') != 2 && $this->session->userdata('level_user') != 1) { ?>
+					<!--	<a href="<?=current_url().'?h=1'?>" class="btn btn-sm btn-primary">History Disposisi Atasan</a> -->
 					<?php
-					}
-					if(($this->session->userdata('level_jabatan') != 5 && $this->session->userdata('level_user') != 1) || $this->session->userdata('level_user') == 1) {
-						if($this->session->userdata('level_user') == 2 || $this->session->userdata('level_user') == 1) {
-							$t = "History Disposisi";
-						} else {
-							$t = "History Disposisi Pribadi dan Bawahan";
-						} ?>
+					//}
+					//if(($this->session->userdata('level_jabatan') != 5 && $this->session->userdata('level_user') != 1) || $this->session->userdata('level_user') == 1) {
+					//	if($this->session->userdata('level_user') == 2 || $this->session->userdata('level_user') == 1) {
+					//		$t = "History Disposisi";
+					//	} else {
+					//		$t = "History Disposisi Pribadi dan Bawahan";
+					//	}
+						$t = "History Disposisi";?>
 						<a href="<?=current_url().'?h=2'?>" class="btn btn-sm btn-primary"><?=$t?></a>
 					<?php
-					} ?>
+					//} ?>
 				</div>
 				<div class="pull-right">
 					<a href="<?=site_url('surat_masuk')?>" class="btn btn-sm btn-dark"><i class="fa fa-angle-left"></i> Kembali</a>
 					<?php
-					if($this->disposisi->cek_ada_disposisi($this->uri->segment('2'))->num_rows() == 0 && $this->session->userdata('level_jabatan') != 5) { ?>
+					if($this->disposisi->cek_ada_disposisi($this->uri->segment('2'))->num_rows() == 0 && $this->session->userdata('level_jabatan') != 0) { ?>
 						<a href="<?=site_url('disposisi/'.$this->uri->segment(2).'/add')?>" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah Disposisi</a> 
 					<?php } ?>
 				</div>
@@ -81,7 +87,7 @@
 							<th>Disposisi Oleh</th>
 							<th>Diteruskan Kepada</th>
 							<th>Catatan Disposisi</th>
-							<th><i class="fa fa-gear"></i></th>
+							<th class="no-print"><i class="fa fa-gear"></i></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -90,7 +96,7 @@
 						if($h == 1) {
 							$row = $this->disposisi->get_disposisi_atasan($this->session->userdata('idjabatan'), $this->uri->segment('2'))->result();
 						} else if($h == 2) {
-							if($this->session->userdata('level_user') == 1) {
+							if($this->session->userdata('level_user') != 0) {
 								$row = $this->disposisi->get_disposisi_all($this->uri->segment('2'))->result();
 							} else {
 								$row = $this->disposisi->get_disposisi_bawahan($this->session->userdata('idjabatan'), $this->uri->segment('2'))->result();
@@ -113,10 +119,10 @@
 									?>
 								</td>
 								<td><?=$data->catatan?></td>
-								<td class="text-center">
+								<td class="text-center no-print">
 									<!-- <a href="<?=site_url('disposisi/'.$this->uri->segment(2).'/detail/'.$data->id_disposisi)?>" class="btn btn-xs btn-info">Detail</a> -->
 									<?php if($data->user_input == $this->session->userdata('iduser')) { ?>
-										<a href="<?=site_url('disposisi/'.$this->uri->segment(2).'/del/'.$data->id_disposisi)?>" onclick="return confirm('Apakah Anda yakin?')"  class="btn btn-xs btn-danger" title="Delete"><i class="fa fa-trash-o"></i></a>
+										<a href="<?=site_url('disposisi/'.$this->uri->segment(2).'/del/'.$data->id_disposisi)?>" onclick="return confirm('Apakah Anda yakin?')"  class="btn btn-xs btn-danger no-print" title="Delete"><i class="fa fa-trash-o"></i></a>
 							        <?php } ?>
 					            </td>
 							</tr>

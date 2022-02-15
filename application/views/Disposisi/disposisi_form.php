@@ -10,7 +10,7 @@
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title" align="right">
-				<a href="<?=site_url('disposisi/'.$this->uri->segment(2))?>" class="btn btn-sm btn-dark"><i class="fa fa-angle-left"></i> Kembali</a>
+				<a href="<?=site_url('disposisi/'.$this->uri->segment(2).'?h=2')?>" class="btn btn-sm btn-dark"><i class="fa fa-angle-left"></i> Kembali</a>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_title">

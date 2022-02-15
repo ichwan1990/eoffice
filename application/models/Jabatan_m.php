@@ -1,8 +1,7 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Jabatan_m extends CI_Model
-{
+class Jabatan_m extends CI_Model {
 
 	var $table = "tb_jabatan";
 
@@ -12,7 +11,7 @@ class Jabatan_m extends CI_Model
 		$this->db->from($this->table);
 		$this->db->where('id_jabatan !=', '0');
 		$this->db->where('id_jabatan !=', '1');
-		if ($id != null) {
+		if($id != null) {
 			$this->db->where('id_jabatan', $id);
 		}
 		$this->db->order_by('level_jabatan', 'asc');
@@ -24,7 +23,7 @@ class Jabatan_m extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
-		if ($id != null) {
+		if($id != null) {
 			$this->db->where('id_jabatan', $id);
 		}
 		$this->db->order_by('level_jabatan', 'asc');
@@ -44,8 +43,7 @@ class Jabatan_m extends CI_Model
 		return $query;
 	}
 
-	function getfor_suratout()
-	{
+	function getfor_suratout() {
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->where('id_jabatan !=', '0');
@@ -54,14 +52,13 @@ class Jabatan_m extends CI_Model
 		return $query;
 	}
 
-	function cek_kode($kode, $id = null)
-	{
+	function cek_kode($kode, $id = null) {
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->where('kode_surat', $kode);
-		if ($id != null) {
+		if($id != null) {
 			$this->db->where('id_jabatan !=', $id);
-		}
+		} 
 		$query = $this->db->get();
 		return $query;
 	}
@@ -75,7 +72,7 @@ class Jabatan_m extends CI_Model
 			'level_jabatan' => $data['level'],
 			'parent_jabatan' => $data['parent_jabatan']
 		);
-		$this->db->insert($this->table, $param);
+        $this->db->insert($this->table, $param);
 	}
 
 	public function edit($data)
@@ -88,14 +85,14 @@ class Jabatan_m extends CI_Model
 			'parent_jabatan' => $data['parent_jabatan']
 		);
 		$this->db->where('id_jabatan', $data['id']);
-		$this->db->update($this->table, $param);
+        $this->db->update($this->table, $param);
 	}
 
 	public function del($id)
 	{
 		$this->db->where('id_jabatan', $id);
-		$this->db->delete($this->table);
-		return $this->db->affected_rows();
+        $this->db->delete($this->table);
+        return $this->db->affected_rows();
 	}
 
 	function getfor_tujuandisposisi()
@@ -110,4 +107,5 @@ class Jabatan_m extends CI_Model
 		$query = $this->db->get();
 		return $query;
 	}
+
 }

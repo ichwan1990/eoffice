@@ -1,4 +1,5 @@
-<?php $page = $this->uri->segment(1);
+<?php 
+$page = $this->uri->segment(1);
 $page2 = $this->uri->segment(2);
 $page3 = $this->uri->segment(3); ?>
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -127,6 +128,7 @@ $page3 = $this->uri->segment(3); ?>
 			</li>
 		</ul>
 	</div>
+	<?php if ($this->session->userdata('level_user') == '1') { ?>
 	<div class="menu_section">
 		<ul class="nav side-menu">
 			<?php
@@ -173,7 +175,7 @@ $page3 = $this->uri->segment(3); ?>
 				$e3 = null;
 				$e4 = null;
 			} ?>
-			<li><a><i class="fa fa-briefcase"></i> SPPD <span class="fa fa-chevron-down"></span></a>
+			<li class="disabled" ><a><i class="fa fa-briefcase"></i> SPPD <span class="fa fa-chevron-down" ></span></a>
 				<ul class="nav child_menu" <?= $block ?>>
 					<li <?= $e1 ?>><a href="<?= site_url('sppd/kegiatan') ?>">Master Kegiatan</a></li>
 					<li <?= $e2 ?>><a href="<?= site_url('sppd') ?>">Input SPPD</a></li>
@@ -183,6 +185,7 @@ $page3 = $this->uri->segment(3); ?>
 			</li>
 		</ul>
 	</div>
+	<?php } ?>
 </div>
 
 

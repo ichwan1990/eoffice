@@ -45,7 +45,7 @@ class profile extends CI_Controller {
                 $this->profile->edit_profile($data);
 			} else {
 				if($this->pegawai->cek_nip($this->input->post('nip'), $this->input->post('id'))->num_rows() > 0) {
-	                echo "<script>alert('NIP sudah digunakan akun lain'); window.location='edit/".$this->input->post('id')."';</script>";
+	                echo "<script>alert('NIK sudah digunakan akun lain'); window.location='edit/".$this->input->post('id')."';</script>";
 	            } else {
 	            	$data = $this->input->post(null, TRUE);
 	                $this->profile->edit_profile($data);

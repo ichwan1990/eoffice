@@ -82,7 +82,7 @@ class Disposisi extends CI_Controller {
 							$this->disposisi->add_detail('tb_disp_detail_perintah', $params);				
 						}
 					}
-					echo "<script>window.location='".site_url('disposisi/'.$this->input->post('id_surat_in'))."';</script>";
+					echo "<script>window.location='".site_url('disposisi/'.$this->input->post('id_surat_in').'?h=2')."';</script>";
 				} else { ?>
 					<script>alert('Tujuan (diteruskan) disposisi belum dipilih'); window.location='<?=site_url('disposisi/'.$this->input->post('id_surat_in').'/add')?>';</script>
 				<?php
@@ -101,7 +101,7 @@ class Disposisi extends CI_Controller {
 						$this->disposisi->add_detail('tb_disp_detail_perintah', $params);				
 					}
 				}
-				echo "<script>window.location='".site_url('disposisi/'.$this->input->post('id_surat_in'))."';</script>";
+				echo "<script>window.location='".site_url('disposisi/'.$this->input->post('id_surat_in').'?h=2')."';</script>";
 			}
 		}
 	}

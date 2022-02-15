@@ -70,7 +70,7 @@
 									<li><a href="<?= site_url('auth/logout') ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 								</ul>
 							</li>
-							<?php if ($this->session->userdata('level_jabatan') != '5' && $this->session->userdata('level_user') != '0') { ?>
+							<?php if ($this->session->userdata('level_jabatan') != '6' && $this->session->userdata('level_user') != '0') { ?>
 								<li role="presentation" class="dropdown">
 									<a href="javascript:(0);" title="Surat Belum Disposisi" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
 										<i class="fa fa-envelope-o"></i>
@@ -96,7 +96,7 @@
 										foreach ($in->result() as $r => $data) {
 											if ($CI->disposisi_m->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) { ?>
 												<li>
-													<a href="<?= site_url('disposisi/' . $data->id_surat_in) ?>">
+													<a href="<?= site_url('disposisi/' . $data->id_surat_in.'?h=2') ?>">
 														<span><?= $data->no_surat ?></span>
 														<span class="time"><?= tgl_indo($data->tgl_surat) ?></span>
 														<span class="message"><?= substr($data->perihal, 0, 90) ?> </span>
@@ -147,6 +147,24 @@
 				.select2-results {
 					color: #524F4E !important;
 				}
+				
+                table {
+                  page-break-after: auto;
+                }
+                tr {
+                  page-break-inside: avoid;
+                  page-break-after: auto;
+                }
+                td {
+                  page-break-inside: avoid;
+                  page-break-after: auto;
+                }
+                thead {
+                  display: table-row-group;
+                }
+                tfoot {
+                  display: table-footer-group;
+                }
 			</style>
 
 			<div class="right_col" role="main">
@@ -177,5 +195,3 @@
 </body>
 
 </html>
-
-<!-- Developed by yukcoding.co.id -->

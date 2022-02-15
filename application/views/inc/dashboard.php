@@ -12,6 +12,7 @@
 	foreach ($in->result() as $r => $d) {
 		if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
 			$jml = $jml + 1;
+			echo $jml ;
 		}
 	}
 	?>
@@ -23,14 +24,25 @@
 			if ($this->session->userdata('level_user') == '0' || $this->session->userdata('level_user') == '1' || $this->session->userdata('level_user') == '2') {
 				$count_surat = $surat_masuk;
 			} else {
-				$count_surat = $this->surat_in->get2()->num_rows();
+				$count_surat = $this->surat_in->get3()->num_rows();
 			} ?>
 			<div class="count"><?= $count_surat ?></div>
 			<h3><a href="<?= site_url('surat_masuk') ?>">Surat Masuk</a></h3>
 			<p>Total</p>
 		</div>
 	</div>
-	<?php if ($this->session->userdata('level_user') != '0' && $this->session->userdata('level_jabatan') != '5') { ?>
+		<?php if ($this->session->userdata('level_user') != '0') { ?>
+		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-download"></i></div>
+				<?php $count_bln_ini = $this->surat_in->get4()->num_rows(); ?>
+				<div class="count"><?= $count_bln_ini ?></div>
+				<h3><a href="<?= site_url('surat_masuk?s=b') ?>">Surat Masuk</a></h3>
+				<p>Bulan Ini</p>
+			</div>
+		</div>
+	<?php } ?>
+	<?php if ($this->session->userdata('level_user') != '0') { ?>
 		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="tile-stats">
 				<div class="icon"><i class="fa fa-envelope"></i></div>
@@ -48,6 +60,9 @@
 			<p>Total</p>
 		</div>
 	</div>
+		<?php
+			if ($this->session->userdata('level_user') == '0' || $this->session->userdata('level_user') == '1' || $this->session->userdata('level_user') == '2') {
+		?>
 	<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="tile-stats">
 			<div class="icon"><i class="fa fa-calendar"></i></div>
@@ -56,6 +71,8 @@
 			<p>Total</p>
 		</div>
 	</div>
+	    <?php } ?>
+	    
 	<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12 hidden">
 		<div class="tile-stats">
 			<div class="icon"><i class="fa fa-briefcase"></i></div>

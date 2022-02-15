@@ -90,11 +90,9 @@
 				text: "Silahkan hubungi admin",
 				type: "info"
 			}, function() {
-				// window.location.href="https://yukcoding.id";
 			});
 		}
 	</script>
 </body>
 
 </html>
-<!-- Developed by yukcoding.co.id -->
