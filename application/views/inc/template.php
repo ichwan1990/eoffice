@@ -20,6 +20,15 @@
 	<link href="<?= base_url() ?>assets/vendors/select2/select2.min.css" rel="stylesheet">
 	<link href="<?= base_url() ?>assets/vendors/select2/select2-bootstrap.css" rel="stylesheet">
 
+	<script src="<?= base_url() ?>assets/vendors/chartjs/Chart.bundle.js"></script>
+	<script src="<?= base_url() ?>assets/vendors/chartjs/samples/utils.js"></script>
+	<style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
 </head>
 
 <body class="nav-md">
@@ -96,7 +105,7 @@
 										foreach ($in->result() as $r => $data) {
 											if ($CI->disposisi_m->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) { ?>
 												<li>
-													<a href="<?= site_url('disposisi/' . $data->id_surat_in.'?h=2') ?>">
+													<a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>">
 														<span><?= $data->no_surat ?></span>
 														<span class="time"><?= tgl_indo($data->tgl_surat) ?></span>
 														<span class="message"><?= substr($data->perihal, 0, 90) ?> </span>
@@ -140,6 +149,7 @@
 						display: none !important;
 					}
 				}
+
 				[class^='select2'] {
 					border-radius: 0px !important;
 				}
@@ -147,24 +157,28 @@
 				.select2-results {
 					color: #524F4E !important;
 				}
-				
-                table {
-                  page-break-after: auto;
-                }
-                tr {
-                  page-break-inside: avoid;
-                  page-break-after: auto;
-                }
-                td {
-                  page-break-inside: avoid;
-                  page-break-after: auto;
-                }
-                thead {
-                  display: table-row-group;
-                }
-                tfoot {
-                  display: table-footer-group;
-                }
+
+				table {
+					page-break-after: auto;
+				}
+
+				tr {
+					page-break-inside: avoid;
+					page-break-after: auto;
+				}
+
+				td {
+					page-break-inside: avoid;
+					page-break-after: auto;
+				}
+
+				thead {
+					display: table-row-group;
+				}
+
+				tfoot {
+					display: table-footer-group;
+				}
 			</style>
 
 			<div class="right_col" role="main">
@@ -186,12 +200,12 @@
 	<!-- <script src="<?= base_url() ?>assets/vendors/iCheck/icheck.min.js"></script> -->
 	<script src="<?= base_url() ?>assets/build/js/custom.js"></script>
 	<script>
-        $(document).ready(function() {
-           $(".nav  li.disabled a").click(function() {
-             return false;
-           });
-        });    
-    </script>
+		$(document).ready(function() {
+			$(".nav  li.disabled a").click(function() {
+				return false;
+			});
+		});
+	</script>
 </body>
 
 </html>
