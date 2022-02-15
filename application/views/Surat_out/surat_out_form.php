@@ -36,15 +36,15 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-md-4 col-sm-4 col-xs-12">No. Surat *</label>
-					<div class="col-md-5 col-sm-5 col-xs-12">
-						<input type="text" name="no_surat" id="no_surat" class="form-control col-md-7 col-xs-12" required>
-					</div>
-				</div>
-				<div class="form-group">
 					<label class="control-label col-md-4 col-sm-4 col-xs-12">Tanggal Surat *</label>
 					<div class="col-md-3 col-sm-4 col-xs-12">
 						<input type="date" name="tgl_surat" class="form-control col-md-3 col-sm-3 col-xs-12" value="<?= $row->tgl_surat ?>" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-4 col-sm-4 col-xs-12">No. Surat *</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input type="text" name="no_surat" id="no_surat" class="form-control col-md-7 col-xs-12" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -126,7 +126,6 @@
 							contentType: "application/json",
 							success: function(data) {
 								//console.log(data);
-								alert(data);
 								$('#no_agenda').val(data);
 								set_nosurat();
 							}

@@ -37,7 +37,7 @@ class Surat_keluar extends CI_Controller
 		$kode_agenda = $this->surat_out->no_agenda();
 		$surat_out = new stdClass();
 		$surat_out->id_surat_out = null;
-		$surat_out->no_agenda = $kode_agenda;
+		$surat_out->no_agenda = null;
 		$surat_out->tgl_surat = null;
 		$surat_out->no_surat = null;
 		$surat_out->perihal = null;

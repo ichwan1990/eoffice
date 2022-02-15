@@ -55,9 +55,10 @@ class surat_out_m extends CI_Model
 
 	function no_agenda1($id_pengolah)
 	{
-		//$query = $this->db->query('SELECT MAX(no_agenda) AS no FROM '.$this->table);
+		$tahun = date('Y');
 		$this->db->select('MAX(no_agenda) AS no', false);
 		$this->db->where('pengolah', $id_pengolah);
+		$this->db->where('LEFT(tgl_surat,4)', $tahun);
 		$query = $this->db->get($this->table);
 		return $query;
 	}
