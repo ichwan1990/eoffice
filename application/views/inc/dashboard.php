@@ -12,7 +12,6 @@
 	foreach ($in->result() as $r => $d) {
 		if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
 			$jml = $jml + 1;
-			echo $jml ;
 		}
 	}
 	?>
@@ -31,7 +30,7 @@
 			<p>Total</p>
 		</div>
 	</div>
-		<?php if ($this->session->userdata('level_user') != '0') { ?>
+	<?php if ($this->session->userdata('level_user') != '0') { ?>
 		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="tile-stats">
 				<div class="icon"><i class="fa fa-download"></i></div>
@@ -60,19 +59,19 @@
 			<p>Total</p>
 		</div>
 	</div>
-		<?php
-			if ($this->session->userdata('level_user') == '0' || $this->session->userdata('level_user') == '1' || $this->session->userdata('level_user') == '2') {
-		?>
-	<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="tile-stats">
-			<div class="icon"><i class="fa fa-calendar"></i></div>
-			<div class="count"><?= $agenda ?></div>
-			<h3><a href="<?= site_url('agenda') ?>">Agenda</a></h3>
-			<p>Total</p>
+	<?php
+	if ($this->session->userdata('level_user') == '0' || $this->session->userdata('level_user') == '1' || $this->session->userdata('level_user') == '2') {
+	?>
+		<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-calendar"></i></div>
+				<div class="count"><?= $agenda ?></div>
+				<h3><a href="<?= site_url('agenda') ?>">Agenda</a></h3>
+				<p>Total</p>
+			</div>
 		</div>
-	</div>
-	    <?php } ?>
-	    
+	<?php } ?>
+
 	<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12 hidden">
 		<div class="tile-stats">
 			<div class="icon"><i class="fa fa-briefcase"></i></div>
