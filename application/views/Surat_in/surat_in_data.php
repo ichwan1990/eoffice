@@ -1,31 +1,26 @@
 <div class="card">
     <div class="card-header">
-        <div class="row">
-            <?php if ($this->session->userdata('level_user') == '1') { ?>
-                <div class="col">
-                    <a href="<?= site_url('surat_masuk/add') ?>" class="btn btn-sm btn-success float-right"><i class="fa fa-plus"></i> Tambah Surat Masuk</a>
+        <?php if ($this->session->userdata('level_user') == '1') { ?>
+            <div class="col">
+                <a href="<?= site_url('surat_masuk/add') ?>" class="btn btn-sm btn-success float-right"><i class="fa fa-plus"></i> Tambah Surat Masuk</a>
+            </div>
+        <?php }
+        if ($this->session->userdata('level_user') != '1') { ?>
+            <form action="<?= site_url('surat_masuk') ?>" method="get">
+                <div class="input-group input-group-sm col-4">
+                    <select name="s" class="form-control" required>
+                        <option value="b" <?= @$_GET['s'] == 'b' ? 'selected' : null ?>>Bulan ini</option>
+                        <option value="A" <?= @$_GET['s'] == 'A' ? 'selected' : null ?>>Semua Surat</option>
+                        <option value="n" <?= @$_GET['s'] == 'n' ? 'selected' : null ?>>Belum Disposisi</option>
+                        <option value="y" <?= @$_GET['s'] == 'y' ? 'selected' : null ?>>Sudah Disposisi</option>
+                    </select>
+                    <span class="input-group-append">
+                        <!-- <input type="submit" value="Filter" class="btn btn-success"> -->
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </span>
                 </div>
-            <?php }
-            if ($this->session->userdata('level_user') != '1') { ?>
-                <div class="col-sm-6 col-xs-12">
-
-                    <form action="<?= site_url('surat_masuk') ?>" method="get">
-                        <div class="input-group input-group-sm">
-                            <select name="s" class="form-control" required>
-                                <option value="b" <?= @$_GET['s'] == 'b' ? 'selected' : null ?>>Bulan ini</option>
-                                <option value="A" <?= @$_GET['s'] == 'A' ? 'selected' : null ?>>Semua Surat</option>
-                                <option value="n" <?= @$_GET['s'] == 'n' ? 'selected' : null ?>>Belum Disposisi</option>
-                                <option value="y" <?= @$_GET['s'] == 'y' ? 'selected' : null ?>>Sudah Disposisi</option>
-                            </select>
-                            <span class="input-group-apent">
-                                <!-- <input type="submit" value="Filter" class="btn btn-success"> -->
-                                <button type="submit" class="btn btn-success">Filter</button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-        </div>
-    <?php } ?>
+            </form>
+        <?php } ?>
     </div>
     <div class="card-body">
         <div class="table-responsive">
