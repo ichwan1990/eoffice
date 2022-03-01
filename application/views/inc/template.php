@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/fontawesome-free/css/all.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -192,6 +194,8 @@
     <script src="<?= base_url('assets/theme') ?>/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="<?= base_url('assets/theme') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="<?= base_url('assets/theme') ?>/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- Select2 -->
     <script src="<?= base_url('assets/theme') ?>/plugins/select2/js/select2.full.min.js"></script>
     <!-- DataTables  & Plugins -->

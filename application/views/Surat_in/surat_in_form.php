@@ -40,7 +40,7 @@
                     <label class="control-label">Pengirim Surat *</label>
                     <div class="radio">
                         <label>
-                            <input type="radio" value="1" name="input_pengirim" id="input_pengirim1" required <?= $row->input_pengirim == "1" ? "checked" : null ?>> Input Manual
+                            <input type="radio" value="1" name="input_pengirim" id="input_pengirim1" checked required <?= $row->input_pengirim == "1" ? "checked" : null ?>> Input Manual
                         </label>
                     </div>
                     <div class="radio" id="div_pengirim1">
@@ -62,52 +62,88 @@
                     <textarea name="hal" class="form-control" required><?= $row->perihal ?></textarea>
                 </div>
                 <!-- /.form-group -->
-                <div class="form-group">
+                <div class="form-group d-none">
+                    <label class="control-label">Isi Ringkas *</label>
+                    <textarea name="isi" class="form-control" rows="5"><?= $row->isi_ringkas ?></textarea>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
+                    <label class="control-label">Sifat Surat *</label>
+                    <div class="row">
+                        <div class="radio mx-auto">
+                            <p>
+                                <input type="radio" value="Biasa" name="sifat" required <?= $row->sifat_surat == "Biasa" ? "checked" : null ?>> Biasa
+                            </p>
+                        </div>
+                        <div class="radio mx-auto">
+                            <p>
+                                <input type="radio" value="Segera" name="sifat" <?= $row->sifat_surat == "Segera" ? "checked" : null ?>> Segera
+                            </p>
+                        </div>
+                        <div class="radio mx-auto">
+                            <p>
+                                <input type="radio" value="Rahasia" name="sifat" <?= $row->sifat_surat == "Rahasia" ? "checked" : null ?>> Rahasia
+                            </p>
+                        </div>
+                        <div class="radio mx-auto">
+                            <p>
+                                <input type="radio" value="Penting" name="sifat" <?= $row->sifat_surat == "Penting" ? "checked" : null ?>> Penting
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
+                    <label class="control-label">File Surat</label>
+                    <div class="custom-file">
+                        <input type="file" name="file_surat" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Pilih file</label>
+                        <small>(Biarkan kosong jika tidak ada)</small>
+                    </div>
                 </div>
                 <!-- /.form-group -->
+                <div class="form-group d-none">
+                    <label class="control-label">Keterangan</label>
+                    <textarea name="ket" class="form-control" rows="4"><?= $row->keterangan ?></textarea>
+                </div>
             </div>
             <!-- /.col -->
         </div>
         <!-- /.row -->
     </div>
     <div class="card-footer">
-        <div class="row">
-
+        <div class="row float-right">
+            <input type="submit" name="<?= $page ?>" value="Simpan" class="btn btn-success">
+            <button class="btn btn-default mx-3" type="reset">Reset</button>
         </div>
         </form>
     </div>
 </div>
 <script type="text/javascript">
-    function set_required() {
-        if ($('#input_pengirim1').is(':checked')) {
-            $('#pengirim1').attr('name', 'pengirim');
-            $('#pengirim2').removeAttr('name');
-            $('#pengirim2').attr('readonly', 'readonly');
-            $('#pengirim1').removeAttr('readonly');
-            $('#pengirim2').val('');
-            // $('#pengirim2').removeAttr('required');
-        } else if ($('#input_pengirim2').is(':checked')) {
-            $('#pengirim2').attr('name', 'pengirim');
-            $('#pengirim1').removeAttr('name');
-            $('#pengirim1').attr('readonly', 'readonly');
-            $('#pengirim2').removeAttr('readonly');
-            $('#pengirim1').val('');
-        }
-    }
+    // function set_required() {
+    //     if ($('#input_pengirim1').is(':checked')) {
+    //         $('#pengirim1').attr('name', 'pengirim');
+    //         $('#pengirim2').removeAttr('name');
+    //         $('#pengirim2').attr('readonly', 'readonly');
+    //         $('#pengirim1').removeAttr('readonly');
+    //         $('#pengirim2').val('');
+    //         // $('#pengirim2').removeAttr('required');
+    //     } else if ($('#input_pengirim2').is(':checked')) {
+    //         $('#pengirim2').attr('name', 'pengirim');
+    //         $('#pengirim1').removeAttr('name');
+    //         $('#pengirim1').attr('readonly', 'readonly');
+    //         $('#pengirim2').removeAttr('readonly');
+    //         $('#pengirim1').val('');
+    //     }
+    // }
 
-    window.onload = set_required();
-    $('#input_pengirim1').click(function() {
-        set_required();
-    })
-    $('#input_pengirim2').click(function() {
-        set_required();
-    })
+    // window.onload = set_required();
+    // $('#input_pengirim1').click(function() {
+    //     set_required();
+    // })
+    // $('#input_pengirim2').click(function() {
+    //     set_required();
+    // })
 
     $("#kategori").select2({
         theme: "bootstrap"
@@ -115,5 +151,9 @@
 
     $("#pengirim2").select2({
         theme: "bootstrap"
+    });
+
+    $(function() {
+        bsCustomFileInput.init();
     });
 </script>
