@@ -22,12 +22,16 @@
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/dist/css/adminlte.min.css">
+
     <style>
         body {
             font-family: 'Share Tech', sans-serif;
             font-size: .875rem !important;
         }
     </style>
+
+    <!-- jQuery -->
+    <script src="<?= base_url('assets/theme') ?>/plugins/jquery/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -190,8 +194,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="<?= base_url('assets/theme') ?>/plugins/jquery/jquery.min.js"></script>
+
     <!-- Bootstrap 4 -->
     <script src="<?= base_url('assets/theme') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->

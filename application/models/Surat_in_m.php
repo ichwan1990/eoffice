@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Surat_in_m extends CI_Model {
+class Surat_in_m extends CI_Model
+{
 
 	var $table = "tb_surat_masuk";
 
@@ -10,9 +11,9 @@ class Surat_in_m extends CI_Model {
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
-		if($id != null) {
+		if ($id != null) {
 			$this->db->where('id_surat_in', $id);
-		} 
+		}
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
 		return $query;
@@ -31,8 +32,8 @@ class Surat_in_m extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	
-		public function get3()
+
+	public function get3()
 	{
 		$this->db->select('*');
 		$this->db->from('tb_disposisi_surat');
@@ -45,17 +46,17 @@ class Surat_in_m extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	}
-	
+
 	public function get4()
 	{
-	    $bulan = date('m');
+		$bulan = date('m');
 		$this->db->select('*');
 		$this->db->from('tb_disposisi_surat');
 		$this->db->join('tb_surat_masuk', 'tb_disposisi_surat.id_surat_in = tb_surat_masuk.id_surat_in');
 		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_disp_detail_tujuan', 'tb_disposisi_surat.id_disposisi = tb_disp_detail_tujuan.id_disposisi');
-		if ($this->session->userdata('level_user') != '2'){
-		$this->db->where('tb_disp_detail_tujuan.id_user', $this->session->userdata('iduser'));
+		if ($this->session->userdata('level_user') != '2') {
+			$this->db->where('tb_disp_detail_tujuan.id_user', $this->session->userdata('iduser'));
 		}
 		$this->db->where("(SUBSTRING(tb_surat_masuk.tgl_catat, 6, 2) = '$bulan')");
 		$this->db->group_by('no_agenda');
@@ -69,18 +70,20 @@ class Surat_in_m extends CI_Model {
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
-		$this->db->where('tgl_surat BETWEEN "'.$tgl1. '" and "'.$tgl2.'"');
+		$this->db->where('tgl_surat BETWEEN "' . $tgl1 . '" and "' . $tgl2 . '"');
 		$this->db->order_by('no_agenda', 'asc');
 		$query = $this->db->get();
 		return $query;
 	}
 
-	function no_agenda0() {
-		$query = $this->db->query('SELECT MAX(no_agenda) AS no FROM '.$this->table);
+	function no_agenda0()
+	{
+		$query = $this->db->query('SELECT MAX(no_agenda) AS no FROM ' . $this->table);
 		return $query;
 	}
-	
-	function no_agenda() {
+
+	function no_agenda()
+	{
 		$tahun = date('Y');
 		$this->db->select('RIGHT(tb_surat_masuk.no_agenda,4) as no_agenda', false);
 		$this->db->order_by('no_agenda', 'DESC');
@@ -98,13 +101,14 @@ class Surat_in_m extends CI_Model {
 		return $kodetampil;
 	}
 
-	function cek_no_agenda($no, $id = null) {
+	function cek_no_agenda($no, $id = null)
+	{
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->where('no_agenda', $no);
-		if($id != null) {
+		if ($id != null) {
 			$this->db->where('id_surat_in !=', $id);
-		} 
+		}
 		$query = $this->db->get();
 		return $query;
 	}
@@ -127,12 +131,12 @@ class Surat_in_m extends CI_Model {
 			'tgl_catat' => date('Y-m-d'),
 			'user_input' => $this->session->userdata('iduser')
 		);
-        $this->db->insert($this->table, $param);
+		$this->db->insert($this->table, $param);
 	}
 
 	public function edit($data)
 	{
-		if($data['file'] == '') {
+		if ($data['file'] == '') {
 			$param = array(
 				'no_agenda' => $data['no_agenda'],
 				'kategori' => $data['kategori'],
@@ -167,7 +171,7 @@ class Surat_in_m extends CI_Model {
 			);
 		}
 		$this->db->where('id_surat_in', $data['id']);
-        $this->db->update($this->table, $param);
+		$this->db->update($this->table, $param);
 	}
 
 	public function del($id)
@@ -175,11 +179,10 @@ class Surat_in_m extends CI_Model {
 		// $this->db->db_debug = FALSE;
 		$this->db->where('id_surat_in', $id);
 		$this->db->delete($this->table);
-		if($this->db->affected_rows() > 0) {
+		if ($this->db->affected_rows() > 0) {
 			return 1;
 		} else {
 			return 0;
 		}
 	}
-
 }

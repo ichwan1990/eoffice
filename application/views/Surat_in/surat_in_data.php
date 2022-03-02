@@ -83,10 +83,10 @@
                                     <td class="text-center">
                                         <div class="col-md">
                                             <?php if ($this->session->userdata('level_user') == '1') { ?>
-                                                <div class="col">
-                                                    <a href="<?= site_url('surat_masuk/edit/' . $data->id_surat_in) ?>" class="btn btn-xs btn-primary" title="Edit"><i class="fa fa-pen"></i></a>
-                                                    <a href="<?= site_url('surat_masuk/del/' . $data->id_surat_in) ?>" onclick="return confirm('Apakah Anda yakin?')" class="btn btn-xs btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
-                                                </div></br>
+                                                <div class="p-2">
+                                                    <a href="<?= site_url('surat_masuk/edit/' . $data->id_surat_in) ?>" class="btn btn-xs btn-primary px-3" title="Edit"><i class="fa fa-pen"></i></a>
+                                                    <a href="<?= site_url('surat_masuk/del/' . $data->id_surat_in) ?>" onclick="return confirm('Apakah Anda yakin?')" class="btn btn-xs btn-danger px-3" title="Delete"><i class="fa fa-trash"></i></a>
+                                                </div>
                                                 <?php }
                                             if ($this->session->userdata('level_user') == '1') {
                                                 if ($this->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) {
