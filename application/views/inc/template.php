@@ -34,7 +34,7 @@
     <script src="<?= base_url('assets/theme') ?>/plugins/jquery/jquery.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-navbar-fixed">
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -50,7 +50,7 @@
             <ul class="navbar-nav ml-auto">
 
                 <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown scroll-menu scroll-menu-2x">
                     <?php
                     $CI = &get_instance();
                     $CI->load->model('surat_in_m');
@@ -70,7 +70,7 @@
                         <i class="far fa-bell"></i>
                         <span class="badge badge-danger navbar-badge"><?= $jml ?></span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <div class="dropdown-menu dropdown-menu-lg  dropdown-menu-right">
                         <span class="dropdown-item dropdown-header badge-danger "><?= $jml ?> Surat Masuk</span>
                         <?php
                         foreach ($in->result() as $r => $data) {
@@ -81,8 +81,8 @@
                                     <div class="media">
                                         <!-- <img src="<?= base_url('assets/theme') ?>/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"> -->
                                         <div class="media-body">
-                                            <h3 class="dropdown-item-title">
-                                                <?= $data->no_surat ?>
+                                            <div class="dropdown-item-title">
+                                                <strong> <?= $data->no_surat ?></strong>
                                                 <?php if ($data->sifat_surat == "Biasa") {
                                                     echo  '<span class="float-right text-sm text-success"><i class="fas fa-star"></i></span>';
                                                 } elseif ($data->sifat_surat == "Segera") {
@@ -92,7 +92,7 @@
                                                 } else {
                                                     echo  '<span class="float-right text-sm text-black"><i class="fas fa-star"></i></span>';
                                                 } ?>
-                                            </h3>
+                                            </div>
                                             <p class="text-sm"><?= substr($data->perihal, 0, 90) ?></p>
                                             <p class="text-sm text-muted"><i class="far fa-calendar mr-1"></i> <?= tgl_indo($data->tgl_surat) ?></p>
                                         </div>
@@ -218,19 +218,10 @@
     <script src="<?= base_url('assets/theme') ?>/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <!-- <script src="<?= base_url('assets/theme') ?>/dist/js/demo.js"></script> -->
-    <script>
-        $(function() {
-            $('#data').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>
+    <?php
+    include "js.php";
+    ?>
+
 </body>
 
 </html>

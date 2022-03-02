@@ -7,7 +7,7 @@
         <?php }
         if ($this->session->userdata('level_user') != '1') { ?>
             <form action="<?= site_url('surat_masuk') ?>" method="get">
-                <div class="input-group input-group-sm col-4">
+                <div class="input-group input-group-sm col-md-4">
                     <select name="s" class="form-control" required>
                         <option value="b" <?= @$_GET['s'] == 'b' ? 'selected' : null ?>>Bulan ini</option>
                         <option value="A" <?= @$_GET['s'] == 'A' ? 'selected' : null ?>>Semua Surat</option>

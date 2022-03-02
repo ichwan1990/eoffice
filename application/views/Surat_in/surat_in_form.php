@@ -69,30 +69,38 @@
                 <!-- /.form-group -->
                 <div class="form-group clearfix">
                     <label class="control-label">Sifat Surat *</label>
-                    <div class="row m-2">
-                        <div class="icheck-primary d-inline">
-                            <input type="radio" value="Biasa" name="sifat" id="Biasa" required <?= $row->sifat_surat == "Biasa" ? "checked" : null ?>>
-                            <label for="Biasa">
-                                Biasa
-                            </label>
+                    <div class="row ">
+                        <div class="m-4">
+                            <div class="icheck-primary d-inline">
+                                <input type="radio" value="Biasa" name="sifat" id="Biasa" required <?= $row->sifat_surat == "Biasa" ? "checked" : null ?>>
+                                <label for="Biasa">
+                                    Biasa
+                                </label>
+                            </div>
                         </div>
-                        <div class="icheck-warning d-inline">
-                            <input type="radio" value="Segera" name="sifat" id="Segera" <?= $row->sifat_surat == "Segera" ? "checked" : null ?>>
-                            <label for="Segera">
-                                Segera
-                            </label>
+                        <div class="m-4">
+                            <div class="icheck-warning d-inline">
+                                <input type="radio" value="Segera" name="sifat" id="Segera" <?= $row->sifat_surat == "Segera" ? "checked" : null ?>>
+                                <label for="Segera">
+                                    Segera
+                                </label>
+                            </div>
                         </div>
-                        <div class="icheck-dark d-inline">
-                            <input type="radio" value="Rahasia" name="sifat" id="Rahasia" <?= $row->sifat_surat == "Rahasia" ? "checked" : null ?>>
-                            <label for="Rahasia">
-                                Rahasia
-                            </label>
+                        <div class="m-4">
+                            <div class="icheck-dark d-inline">
+                                <input type="radio" value="Rahasia" name="sifat" id="Rahasia" <?= $row->sifat_surat == "Rahasia" ? "checked" : null ?>>
+                                <label for="Rahasia">
+                                    Rahasia
+                                </label>
+                            </div>
                         </div>
-                        <div class="icheck-danger d-inline">
-                            <input type="radio" value="Penting" name="sifat" id="Penting" <?= $row->sifat_surat == "Penting" ? "checked" : null ?>>
-                            <label for="Penting">
-                                Penting
-                            </label>
+                        <div class="m-4">
+                            <div class="icheck-danger d-inline">
+                                <input type="radio" value="Penting" name="sifat" id="Penting" <?= $row->sifat_surat == "Penting" ? "checked" : null ?>>
+                                <label for="Penting">
+                                    Penting
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,7 +131,7 @@
         </form>
     </div>
 </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     function set_required() {
         if ($('#input_pengirim1').is(':checked')) {
             $('#pengirim1').attr('name', 'pengirim');
@@ -164,4 +172,4 @@
         // Ubah "Choose a file" label sesuai dengan nama file yag akan diupload
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
-</script>
+</script> -->
