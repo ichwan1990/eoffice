@@ -1,8 +1,26 @@
 <div class="card">
     <div class="card-header">
         <?php if ($this->session->userdata('level_user') == '1') { ?>
-            <div class="col">
-                <a href="<?= site_url('surat_masuk/add') ?>" class="btn btn-sm btn-success float-right"><i class="fa fa-plus"></i> Tambah Surat Masuk</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="<?= site_url('surat_masuk') ?>" method="get">
+                        <div class="input-group input-group-sm">
+                            <select name="s" class="form-control" required>
+                                <option value="b" <?= @$_GET['s'] == 'b' ? 'selected' : null ?>>Bulan ini</option>
+                                <option value="A" <?= (@$_GET['s'] == 'A' || @$_GET['s'] == '')  ? 'selected' : null ?>>Semua Surat</option>
+                                <option value="n" <?= @$_GET['s'] == 'n' ? 'selected' : null ?>>Belum Disposisi</option>
+                                <option value="y" <?= @$_GET['s'] == 'y' ? 'selected' : null ?>>Sudah Disposisi</option>
+                            </select>
+                            <span class="input-group-append">
+                                <!-- <input type="submit" value="Filter" class="btn btn-success"> -->
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 mt-1">
+                    <a href="<?= site_url('surat_masuk/add') ?>" class="btn btn-sm btn-success float-right"><i class="fa fa-plus"></i> Tambah Surat Masuk</a>
+                </div>
             </div>
         <?php }
         if ($this->session->userdata('level_user') != '1') { ?>
@@ -10,7 +28,7 @@
                 <div class="input-group input-group-sm col-md-4">
                     <select name="s" class="form-control" required>
                         <option value="b" <?= @$_GET['s'] == 'b' ? 'selected' : null ?>>Bulan ini</option>
-                        <option value="A" <?= @$_GET['s'] == 'A' ? 'selected' : null ?>>Semua Surat</option>
+                        <option value="A" <?=(@$_GET['s'] == 'A' || @$_GET['s'] == '') ? 'selected' : null ?>>Semua Surat</option>
                         <option value="n" <?= @$_GET['s'] == 'n' ? 'selected' : null ?>>Belum Disposisi</option>
                         <option value="y" <?= @$_GET['s'] == 'y' ? 'selected' : null ?>>Sudah Disposisi</option>
                     </select>
@@ -97,7 +115,7 @@
                                                 <?php
                                                 } else { ?>
                                                     <div class="col">
-                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
+                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
                                                     </div>
                                                 <?php
                                                 }
@@ -105,12 +123,12 @@
                                                 if ($this->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) {
                                                 ?>
                                                     <div class="col">
-                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
+                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
                                                     </div>
                                                 <?php
                                                 } else { ?>
                                                     <div class="col">
-                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
+                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
                                                     </div>
                                             <?php
                                                 }
@@ -166,17 +184,15 @@
                                             <?php }
                                             if ($this->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) { ?>
                                                 <div>
-                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
+                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
                                                 </div>
                                             <?php
                                             } else { ?>
                                                 <div>
-                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
+                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
                                                 </div>
                                             <?php
                                             } ?>
-                                            </br>
-                                            <i><?= tgl_indo($data->tgl_selesai) ?></i>
                                         </td>
                                     </tr>
                                     <?php
@@ -186,7 +202,6 @@
                                 $bulan = date('m');
                                 $bln_saja = substr($data->tgl_catat, 5, 2);
                                 if ($bln_saja == $bulan) {
-                                    if ($this->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() != 0) {
                                     ?>
                                         <tr>
                                             <td align='center'><?= $no++ . "<hr>" . $data->no_agenda ?></td>
@@ -230,21 +245,19 @@
                                                 <?php }
                                                 if ($this->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) { ?>
                                                     <div>
-                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
+                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
                                                     </div>
                                                 <?php
                                                 } else { ?>
                                                     <div>
-                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
+                                                        <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
                                                     </div>
                                                 <?php
                                                 } ?>
-                                                </br>
-                                                <i><?= tgl_indo($data->tgl_selesai) ?></i>
                                             </td>
                                         </tr>
                                     <?php
-                                    }
+                                    
                                 }
                             } else if (@$_GET['s'] == 'y') {
                                 $nosurat = $data->no_surat;
@@ -292,12 +305,12 @@
                                             <?php }
                                             if ($this->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) { ?>
                                                 <div>
-                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
+                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Input Disposisi</a>
                                                 </div>
                                             <?php
                                             } else { ?>
                                                 <div>
-                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
+                                                    <a href="<?= site_url('disposisi/' . $data->id_surat_in ) ?>" class="btn btn-xs btn-info"><i class="fa fa-file"></i> Lihat Disposisi</a>
                                                 </div>
                                             <?php
                                             } ?>

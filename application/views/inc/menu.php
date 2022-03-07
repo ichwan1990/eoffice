@@ -24,7 +24,7 @@ $page3 = $this->uri->segment(3); ?>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url('surat_masuk') ?>" class="nav-link <?= ($page == 'surat_masuk' || $page == 'disposisi')  && $page2 != 'report' ? "active" : null ?>">
+            <a href="<?= site_url('surat_masuk')."?s=b" ?>" class="nav-link <?= ($page == 'surat_masuk' || $page == 'disposisi')  && $page2 != 'report' ? "active" : null ?>">
                 <i class="nav-icon fas fa-envelope"></i>
                 <p>
                     Surat Masuk
@@ -41,7 +41,7 @@ $page3 = $this->uri->segment(3); ?>
             </a>
         </li>
         <li class="nav-item">
-            <a href="" class="nav-link  <?= $page == 'surat_keluar' && $page2 != 'report' ? "active" : null ?>">
+            <a href="" class="nav-link ">
                 <i class="nav-icon fas fa-file"></i>
                 <p>
                     Laporan
@@ -50,13 +50,13 @@ $page3 = $this->uri->segment(3); ?>
             </a>
             <ul class="nav nav-treeview" style="display: none;">
                 <li class="nav-item">
-                    <a href="<?= site_url('surat_masuk/report') ?>" class="nav-link">
+                    <a href="<?= site_url('surat_masuk/report') ?>" class="nav-link <?= $page == 'surat_masuk' && $page2 == 'report' ? "active" : null ?>">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Surat Masuk</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= site_url('surat_keluar/report') ?>" class="nav-link">
+                    <a href="<?= site_url('surat_keluar/report') ?>" class="nav-link <?= $page == 'surat_keluar' && $page2 == 'report' ? "active" : null ?>">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Surat Keluar</p>
                     </a>

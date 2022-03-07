@@ -4,7 +4,7 @@
     $CI->load->model('surat_in_m');
     $CI->load->model('disposisi_m');
     if ($this->session->userdata('level_user') == '2') {
-        $in = $CI->surat_in_m->get();
+        $in = $CI->surat_in_m->get_disp();
     } else {
         $in = $CI->surat_in_m->get2();
     }

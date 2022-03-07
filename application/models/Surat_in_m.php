@@ -18,6 +18,20 @@ class Surat_in_m extends CI_Model
 		$query = $this->db->get();
 		return $query;
 	}
+	
+		public function get_disp($id = null)
+	{
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
+		if ($id != null) {
+			$this->db->where('id_surat_in', $id);
+			$this->db->where('status_selesai' == 0);
+		}
+		$this->db->order_by('no_agenda', 'desc');
+		$query = $this->db->get();
+		return $query;
+	}
 
 	public function get2()
 	{

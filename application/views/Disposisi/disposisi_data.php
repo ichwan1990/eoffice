@@ -45,6 +45,7 @@
 
     <div class="card-body">
         <div class="row">
+            <div class="col-md-6">
             <div class="btn-group">
                 <!-- <input type="text" class="form-control" placeholder=".col-3"> -->
                 <?php $t = "History Disposisi"; ?>
@@ -58,6 +59,10 @@
                 <?php } ?>
                 <!-- <input type="text" class="form-control" placeholder=".col-4"> -->
                 <a href="<?= site_url('surat_masuk') ?>" class="btn btn-sm btn-dark float-right"><i class="fa fa-angle-left"></i> Kembali</a>
+            </div>
+            </div>
+            <div class="col-md-6">
+            <p classs="m-2">*Silahkan <strong>Klik Histori Disposisi</strong> untuk melihat disposisi</p>
             </div>
         </div>
     </div>
