@@ -1,23 +1,23 @@
-<div class="card">
-    <div class="card-header">
+<div class="page-title">
+	<div class="title_left">
+		<h3>Laporan Surat Masuk</h3>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="x_panel">
+    <div class="x_content">
         <div class="row no-print">
-            <div class="col-sm-12 col-xs-12">
+            <div class="col-sm-12 col-xs-12"> 
                 <form action="" method="post">
                     <?php
-                    if (isset($_POST['s'])) {
-                        $hri = $_POST['h'];
-                        $bln = $_POST['b'];
-                        $thn = $_POST['t'];
-                        $hri2 = $_POST['h2'];
-                        $bln2 = $_POST['b2'];
-                        $thn2 = $_POST['t2'];
+                    if(isset($_POST['s'])) {
+                        $hri = $_POST['h']; $bln = $_POST['b']; $thn = $_POST['t'];
+                        $hri2 = $_POST['h2']; $bln2 = $_POST['b2']; $thn2 = $_POST['t2'];
                     } else {
-                        $hri = null;
-                        $bln = null;
-                        $thn = null;
-                        $hri2 = null;
-                        $bln2 = null;
-                        $thn2 = null;
+                        $hri = null; $bln = null; $thn = null;
+                        $hri2 = null; $bln2 = null; $thn2 = null;
                     } ?>
                     <div class="row">
                         <div class="col-sm-5 col-xs-12">
@@ -30,7 +30,7 @@
                                             <?php
                                             for ($i = 1; $i <= 31; $i++) {
                                                 $selected = $hri == $i ? "selected" : null;
-                                                echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                                                echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                                             } ?>
                                         </select>
                                     </div>
@@ -43,8 +43,8 @@
                                             <?php
                                             $nm_bln = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
                                             for ($i = 0; $i < count($nm_bln); $i++) {
-                                                $selected = $bln == ($i + 1) ? "selected" : null;
-                                                echo '<option value="' . ($i + 1) . '" ' . $selected . '>' . $nm_bln[$i] . '</option>';
+                                                $selected = $bln == ($i+1) ? "selected" : null;
+                                                echo '<option value="'.($i+1).'" '.$selected.'>'.$nm_bln[$i].'</option>';
                                             } ?>
                                         </select>
                                     </div>
@@ -55,9 +55,9 @@
                                         <select name="t" class="form-control" required>
                                             <option value=""></option>
                                             <?php
-                                            for ($i = date('Y'); $i > (date('Y') - 10); $i--) {
+                                            for ($i = date('Y'); $i > (date('Y')-10); $i--) {
                                                 $selected = $thn == $i ? "selected" : null;
-                                                echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                                                echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                                             } ?>
                                         </select>
                                     </div>
@@ -74,7 +74,7 @@
                                             <?php
                                             for ($i = 1; $i <= 31; $i++) {
                                                 $selected = $hri2 == $i ? "selected" : null;
-                                                echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                                                echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                                             } ?>
                                         </select>
                                     </div>
@@ -86,8 +86,8 @@
                                             <option value=""></option>
                                             <?php
                                             for ($i = 0; $i < count($nm_bln); $i++) {
-                                                $selected = $bln2 == ($i + 1) ? "selected" : null;
-                                                echo '<option value="' . ($i + 1) . '" ' . $selected . '>' . $nm_bln[$i] . '</option>';
+                                                $selected = $bln2 == ($i+1) ? "selected" : null;
+                                                echo '<option value="'.($i+1).'" '.$selected.'>'.$nm_bln[$i].'</option>';
                                             } ?>
                                         </select>
                                     </div>
@@ -98,9 +98,9 @@
                                         <select name="t2" class="form-control" required>
                                             <option value=""></option>
                                             <?php
-                                            for ($i = date('Y'); $i > (date('Y') - 10); $i--) {
+                                            for ($i = date('Y'); $i > (date('Y')-10); $i--) {
                                                 $selected = $thn2 == $i ? "selected" : null;
-                                                echo '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                                                echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                                             } ?>
                                         </select>
                                     </div>
@@ -121,56 +121,55 @@
                 </form>
             </div>
         </div>
-    </div>
-    <div class="card-body">
-        <?php if (isset($_POST['s'])) {
-            $dari = $_POST['t'] . "-" . $_POST['b'] . "-" . $_POST['h'];
-            $sampai = $_POST['t2'] . "-" . $_POST['b2'] . "-" . $_POST['h2'];
+        <?php if(isset($_POST['s'])) {
+            $dari = $_POST['t']."-".$_POST['b']."-".$_POST['h'];
+            $sampai = $_POST['t2']."-".$_POST['b2']."-".$_POST['h2'];
             $sql = $this->surat_in->get_period($dari, $sampai);
             $row = $sql->result();
-        ?>
+            ?>
+            <div class="ln_solid no-print"></div>
             <div class="table-responsive">
-                <table class="table table-bordered" id="data">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>No.Surat<br>No.Agenda</th>
-                            <th>Pengirim<br>Tgl.Surat</th>
-                            <th>Perihal</br>Kategori</th>
-                            <th>Sifat Surat</br>Tgl.Selesai</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        if ($sql->num_rows() > 0) {
-                            $no = 1;
-                            foreach ($row as $r => $data) { ?>
-                                <tr>
-                                    <td rowspan="2"><?= $no++ ?>.</td>
-                                    <td><?= $data->no_surat ?></td>
-                                    <td><?= $data->pengirim ?></td>
-                                    <td><?= $data->perihal ?>
-
-                                    </td>
-                                    <td>
-                                        <?= $data->sifat_surat ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?= $data->no_agenda ?></td>
-                                    <td><?= tgl_bln_indo($data->tgl_surat) ?></td>
-                                    <td><?= $data->nama_kategori ?></td>
-                                    <td>
-                                        <?php
-                                        if ($data->tgl_selesai != "0000-00-00") {
-                                            echo tgl_indo($data->tgl_selesai);
-                                        } else {
-                                            echo "<i>Belum Selesai</i>";
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
-                                <tr>
+            <table class="table table-bordered" id="data">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>No.Surat<br>No.Agenda</th>
+                        <th>Pengirim<br>Tgl.Surat</th>
+                        <th>Perihal</br>Kategori</th>
+                        <th>Sifat Surat</br>Tgl.Selesai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if($sql->num_rows() > 0) {
+                        $no = 1;
+                        foreach ($row as $r => $data) { ?>
+                            <tr>
+                                <td rowspan="2"><?=$no++?>.</td>
+                                <td><?=$data->no_surat?></td>
+                                <td><?=$data->pengirim?></td>
+                                <td><?=$data->perihal?>
+                                
+                                </td>
+                                <td>
+                                    <?=$data->sifat_surat ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><?=$data->no_agenda?></td>
+                                <td><?=tgl_bln_indo($data->tgl_surat)?></td>
+                                <td><?=$data->nama_kategori ?></td>
+                                <td>
+                                <?php
+                                if ($data->tgl_selesai != "0000-00-00"){
+    								echo tgl_indo($data->tgl_selesai);
+    							}else{
+    							    echo"<i>Belum Selesai</i>";
+    							}
+                                ?>
+                                </td>
+                            </tr>
+                            <tr>
                                     <td colspan="5">
                                         <table class="table table-bordered" id="data">
                                             <thead>
@@ -209,14 +208,13 @@
                                     </td>
                                 </tr>
                         <?php
-                            }
-                        } else {
-                            echo '<tr><td colspan="7" align="center">Data tidak ditemukan</td></tr>';
-                        } ?>
-                    </tbody>
-                </table>
+                        } 
+                    } else {
+                        echo '<tr><td colspan="7" align="center">Data tidak ditemukan</td></tr>';
+                    } ?>
+                </tbody>
+            </table>
             </div>
         <?php } ?>
     </div>
-
 </div>
