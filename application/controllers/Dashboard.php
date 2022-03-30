@@ -15,6 +15,7 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
+	    //$this->output->enable_profiler(TRUE); 
 		$data = array(
 			'surat_masuk' => $this->surat_in->get()->num_rows(),
 			'surat_keluar' => $this->surat_out->get()->num_rows(),

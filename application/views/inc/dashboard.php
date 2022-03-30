@@ -8,12 +8,12 @@
     } else {
         $in = $CI->surat_in_m->get2();
     }
-    $jml = 0;
-    foreach ($in->result() as $r => $d) {
-        if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
-            $jml = $jml + 1;
-        }
-    }
+   $jml = 0;
+    //foreach ($in->result() as $r => $d) {
+    //    if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
+    //        $jml = $jml + 1;
+    //   }
+    //}
     ?>
     <div class="col-lg-3 col-6">
         <!-- small box -->
@@ -35,41 +35,6 @@
             <a href="<?= site_url('surat_masuk') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
-    <?php if ($this->session->userdata('level_user') != '0') { ?>
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <?php $count_bln_ini = $this->surat_in->get4()->num_rows(); ?>
-                    <h3><?= $count_bln_ini ?></h3>
-
-                    <p>Surat Masuk Bulan Ini</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="<?= site_url('surat_masuk?s=b') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    <?php } ?>
-    <!-- ./col -->
-    <?php if ($this->session->userdata('level_user') != '0') { ?>
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3><?= $jml ?></h3>
-
-                    <p>Surat Masuk Belum Disposisi</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                </div>
-                <a href="<?= site_url('surat_masuk?s=n') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    <?php } ?>
     <!-- ./col -->
     <?php
     if ($this->session->userdata('level_user') == '0' || $this->session->userdata('level_user') == '1' || $this->session->userdata('level_user') == '2') {

@@ -51,11 +51,4 @@
         // Ubah "Choose a file" label sesuai dengan nama file yag akan diupload
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
-
-    $('#tambah').click(function() {
-        Toast.fire({
-            icon: 'error',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
-    });
 </script>

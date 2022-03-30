@@ -33,40 +33,6 @@
                     <input type="date" name="tgl_selesai" class="form-control" value="<?= $row->tgl_selesai ?>">
                 </div>
                 <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="control-label">Pengirim Surat *</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" value="1" name="input_pengirim" id="input_pengirim1" required <?= $row->input_pengirim == "1" ? "checked" : null ?>> Input Manual
-                        </label>
-                    </div>
-                    <div class="radio" id="div_pengirim1">
-                        <input type="text" name="pengirim" id="pengirim1" class="form-control" value="<?= $row->pengirim ?>" required>
-                    </div><br>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" value="2" name="input_pengirim" id="input_pengirim2" <?= $row->input_pengirim == "2" ? "checked" : null ?>> Data Master Pengirim
-                        </label>
-                    </div>
-                    <div class="radio" id="div_pengirim2">
-                        <?php
-                        echo form_dropdown('pengirim', $pengirim, $selectedpengirim, ['class' => 'form-control', 'required' => 'required', 'id' => 'pengirim2']) ?>
-                    </div>
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label class="control-label">Perihal *</label>
-                    <textarea name="hal" class="form-control" required><?= $row->perihal ?></textarea>
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group d-none">
-                    <label class="control-label">Isi Ringkas *</label>
-                    <textarea name="isi" class="form-control" rows="5"><?= $row->isi_ringkas ?></textarea>
-                </div>
-                <!-- /.form-group -->
                 <div class="form-group clearfix">
                     <label class="control-label">Sifat Surat *</label>
                     <div class="row ">
@@ -105,6 +71,42 @@
                     </div>
                 </div>
                 <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Pengirim Surat *</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" value="1" name="input_pengirim" id="input_pengirim1" required <?= $row->input_pengirim == "1" ? "checked" : null ?>> Input Manual
+                        </label>
+                    </div>
+                    <div class="radio" id="div_pengirim1">
+                        <input type="text" name="pengirim" id="pengirim1" class="form-control" value="<?= $row->pengirim ?>" required>
+                    </div><br>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" value="2" name="input_pengirim" id="input_pengirim2" <?= $row->input_pengirim == "2" ? "checked" : null ?>> Data Master Pengirim
+                        </label>
+                        <a href="<?= site_url('pengirim_surat/add') ?>" class="btn btn-xs btn-success float-right mr-2"> Tambah Pengirim</a>
+                    </div>
+                    <div class="radio" id="div_pengirim2">
+                        <?php
+                        echo form_dropdown('pengirim', $pengirim, $selectedpengirim, ['class' => 'form-control', 'required' => 'required', 'id' => 'pengirim2']) ?>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label class="control-label">Perihal *</label>
+                    <textarea name="hal" class="form-control" required><?= $row->perihal ?></textarea>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group d-none">
+                    <label class="control-label">Isi Ringkas *</label>
+                    <textarea name="isi" class="form-control" rows="5"><?= $row->isi_ringkas ?></textarea>
+                </div>
+                <!-- /.form-group -->
+
                 <div class="form-group">
                     <label class="control-label">File Surat</label>
                     <div class="custom-file">

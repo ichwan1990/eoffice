@@ -40,6 +40,7 @@ class Surat_in_m extends CI_Model
 		$this->db->join('tb_surat_masuk', 'tb_disposisi_surat.id_surat_in = tb_surat_masuk.id_surat_in');
 		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_disp_detail_tujuan', 'tb_disposisi_surat.id_disposisi = tb_disp_detail_tujuan.id_disposisi');
+		//$this->db->where('tb_surat_masuk.status_selesai' == 0);
 		$this->db->where('tb_disp_detail_tujuan.id_user', $this->session->userdata('iduser'));
 		$this->db->group_by('no_agenda');
 		$this->db->order_by('no_agenda', 'desc');
@@ -54,6 +55,7 @@ class Surat_in_m extends CI_Model
 		$this->db->join('tb_surat_masuk', 'tb_disposisi_surat.id_surat_in = tb_surat_masuk.id_surat_in');
 		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_disp_detail_tujuan', 'tb_disposisi_surat.id_disposisi = tb_disp_detail_tujuan.id_disposisi');
+				//$this->db->where('tb_surat_masuk.status_selesai' == 0);
 		$this->db->where('tb_disp_detail_tujuan.id_user', $this->session->userdata('iduser'));
 		$this->db->group_by('no_agenda');
 		$this->db->order_by('no_agenda', 'desc');
