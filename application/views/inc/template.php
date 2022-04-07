@@ -66,16 +66,55 @@
                             $jml = $jml + 1;
                         }
                     } ?>
-                    <a class="nav-link" href="<?= site_url('surat_masuk?s=n') ?>">
+                    <!-- <a class="nav-link" href="<?= site_url('surat_masuk?s=n') ?>">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-danger navbar-badge"><?= $jml ?></span>
+                    </a> -->
+                    <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
                         <span class="badge badge-danger navbar-badge"><?= $jml ?></span>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-lg  dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header badge-danger "><?= $jml ?> Surat Masuk</span>
+                        <?php
+                        foreach ($in->result() as $r => $data) {
+                            if ($CI->disposisi_m->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) { ?>
+                                <div class="dropdown-divider"></div>
+                                <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="dropdown-item">
+                                    <!-- Message Start -->
+                                    <div class="media">
+                                        <!-- <img src="<?= base_url('assets/theme') ?>/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"> -->
+                                        <div class="media-body">
+                                            <div class="dropdown-item-title">
+                                                <strong> <?= $data->no_surat ?></strong>
+                                                <?php if ($data->sifat_surat == "Biasa") {
+                                                    echo  '<span class="float-right text-sm text-success"><i class="fas fa-star"></i></span>';
+                                                } elseif ($data->sifat_surat == "Segera") {
+                                                    echo  '<span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>';
+                                                } elseif ($data->sifat_surat == "Penting") {
+                                                    echo  '<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>';
+                                                } else {
+                                                    echo  '<span class="float-right text-sm text-black"><i class="fas fa-star"></i></span>';
+                                                } ?>
+                                            </div>
+                                            <p class="text-sm"><?= substr($data->perihal, 0, 90) ?></p>
+                                            <p class="text-sm text-muted"><i class="far fa-calendar mr-1"></i> <?= tgl_indo($data->tgl_surat) ?></p>
+                                        </div>
+                                    </div>
+                                    <!-- Message End -->
+                                </a>
+                        <?php
+                            }
+                        } ?>
+                        <div class="dropdown-divider"></div>
+                        <a href="<?= site_url('surat_masuk?s=A') ?>" class="dropdown-item dropdown-footer">Lihat Semua Surat</a>
+                    </div>
                 </li>
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-user">
-                        <strong><?= ucfirst($this->user_m->get_user($this->session->userdata('iduser'))->row()->nama_lengkap) ?></strong>    
+                            <strong><?= ucfirst($this->user_m->get_user($this->session->userdata('iduser'))->row()->nama_lengkap) ?></strong>
                         </i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
