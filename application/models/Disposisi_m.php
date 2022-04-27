@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Disposisi_m extends CI_Model {
+class Disposisi_m extends CI_Model
+{
 
 	var $table = "tb_disposisi_surat";
 
@@ -11,7 +12,7 @@ class Disposisi_m extends CI_Model {
 		$this->db->from($this->table);
 		$this->db->join('tb_pegawai', 'tb_pegawai.id_user = tb_disposisi_surat.user_input');
 		$this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_pegawai.jabatan');
-		if($id != null) {
+		if ($id != null) {
 			$this->db->where('tb_disposisi_surat.id_disposisi', $id);
 		}
 		$this->db->where('tb_disposisi_surat.id_surat_in', $this->uri->segment('2'));
@@ -19,43 +20,58 @@ class Disposisi_m extends CI_Model {
 		return $query;
 	}
 
+	function cek_id_direktur()
+	{
+		if ($this->session->userdata('level_user') != '1') {
+			$id_direktur = $this->session->userdata('iduser');
+		} else {
+			$this->db->select('*');
+			$this->db->from('tb_pegawai');
+			$this->db->where('level_user', '2');
+			$query = $this->db->get();
+			$id_direktur = $query('id_user');
+		}
+		return $id_direktur;
+	}
 	public function add_disposisi($data)
 	{
+
 		$param = array(
 			'input_teruskan' => $data['input_teruskan'],
 			'catatan' => $data['catatan'],
 			'id_surat_in' => $data['id_surat_in'],
 			'user_input' => $this->session->userdata('iduser')
 		);
-        $this->db->insert($this->table, $param);
+		$this->db->insert($this->table, $param);
 	}
 
 	public function add_detail($table, $data)
 	{
-		$this->db->insert($table, $data);	
+		$this->db->insert($table, $data);
 	}
 
 	public function del_disposisi($id)
 	{
 		$this->db->where('id_disposisi', $id);
-        $this->db->delete($this->table);
+		$this->db->delete($this->table);
 	}
 	public function del_disp_detail_tujuan($id)
 	{
 		$this->db->where('id_disposisi', $id);
-        $this->db->delete('tb_disp_detail_tujuan');
+		$this->db->delete('tb_disp_detail_tujuan');
 	}
 	public function del_disp_detail_perintah($id)
 	{
 		$this->db->where('id_disposisi', $id);
-        $this->db->delete('tb_disp_detail_perintah');
+		$this->db->delete('tb_disp_detail_perintah');
 	}
 
-	function cek_ada_disposisi($id_surat_in) {
+	function cek_ada_disposisi($id_surat_in)
+	{
 		$this->db->select('*');
 		$this->db->from('tb_disposisi_surat');
 		$this->db->where('id_surat_in', $id_surat_in);
-		if($this->session->userdata('level_user') != 1) {
+		if ($this->session->userdata('level_user') != 1) {
 			$this->db->where('user_input', $this->session->userdata('iduser'));
 		}
 		$this->db->group_by('id_surat_in');
@@ -63,7 +79,8 @@ class Disposisi_m extends CI_Model {
 		return $query;
 	}
 
-	function cek_ada_disposisi_down($id_surat_in) {
+	function cek_ada_disposisi_down($id_surat_in)
+	{
 		$this->db->select('*');
 		$this->db->from('tb_disposisi_surat');
 		$this->db->where('id_surat_in', $id_surat_in);
@@ -75,22 +92,25 @@ class Disposisi_m extends CI_Model {
 		return $query;
 	}
 
-	function disp_perintah() {
+	function disp_perintah()
+	{
 		$query = $this->db->get('tb_disp_perintah');
 		return $query;
 	}
 
-	function disp_detail_tujuan($id) {
+	function disp_detail_tujuan($id)
+	{
 		$this->db->select('*');
 		$this->db->from('tb_disp_detail_tujuan');
 		$this->db->join('tb_pegawai', 'tb_pegawai.id_user = tb_disp_detail_tujuan.id_user');
-		$this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_disp_detail_tujuan.id_jabatan'); 	
+		$this->db->join('tb_jabatan', 'tb_jabatan.id_jabatan = tb_disp_detail_tujuan.id_jabatan');
 		$this->db->where('tb_disp_detail_tujuan.id_disposisi', $id);
 		$query = $this->db->get();
 		return $query;
 	}
 
-	function disp_detail_perintah($id) {
+	function disp_detail_perintah($id)
+	{
 		$this->db->select('*');
 		$this->db->from('tb_disp_detail_perintah');
 		$this->db->join('tb_disp_perintah', 'tb_disp_perintah.id_disp_perintah = tb_disp_detail_perintah.id_perintah');
@@ -99,7 +119,8 @@ class Disposisi_m extends CI_Model {
 		return $query;
 	}
 
-	public function get_disposisi_atasan($id, $id_surat_in) {
+	public function get_disposisi_atasan($id, $id_surat_in)
+	{
 		$sql = "Select * from (
 			Select * from tb_disposisi_surat INNER JOIN tb_pegawai ON tb_disposisi_surat.user_input = tb_pegawai.id_user
 			INNER JOIN tb_jabatan ON tb_pegawai.jabatan = tb_jabatan.id_jabatan
@@ -123,7 +144,8 @@ class Disposisi_m extends CI_Model {
 		return $query;
 	}
 
-	public function get_disposisi_bawahan($id, $id_surat_in) {
+	public function get_disposisi_bawahan($id, $id_surat_in)
+	{
 		$sql = "Select * from tb_disposisi_surat INNER JOIN tb_pegawai ON tb_disposisi_surat.user_input = tb_pegawai.id_user
 			INNER JOIN tb_jabatan ON tb_pegawai.jabatan = tb_jabatan.id_jabatan
 			where tb_jabatan.id_jabatan = '$id' AND tb_disposisi_surat.id_surat_in = '$id_surat_in'
@@ -139,7 +161,8 @@ class Disposisi_m extends CI_Model {
 		return $query;
 	}
 
-	function get_disposisi_all($id_surat_in) {
+	function get_disposisi_all($id_surat_in)
+	{
 		$sql = "Select * from tb_disposisi_surat INNER JOIN tb_pegawai ON tb_disposisi_surat.user_input = tb_pegawai.id_user
 			INNER JOIN tb_jabatan ON tb_pegawai.jabatan = tb_jabatan.id_jabatan
 			where tb_disposisi_surat.id_surat_in = '$id_surat_in'
@@ -154,5 +177,4 @@ class Disposisi_m extends CI_Model {
 		$query = $this->db->query($sql);
 		return $query;
 	}
-
 }
