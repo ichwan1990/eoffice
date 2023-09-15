@@ -8,12 +8,29 @@ class Surat_in_m extends CI_Model
 
 	public function get($id = null)
 	{
+		$tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
 		if ($id != null) {
 			$this->db->where('id_surat_in', $id);
 		}
+		$this->db->where('LEFT(tgl_catat,4)', $tahun);
+		$this->db->order_by('no_agenda', 'asc');
+		$query = $this->db->get();
+		return $query;
+	}
+	
+		public function get_tatausaha($id = null)
+	{
+		$tahun = date('Y');
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
+		if ($id != null) {
+			$this->db->where('id_surat_in', $id);
+		}
+		$this->db->where('LEFT(tgl_catat,4)', $tahun);
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
 		return $query;
@@ -21,6 +38,7 @@ class Surat_in_m extends CI_Model
 	
 		public function get_disp($id = null)
 	{
+		$tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('tb_kategori_surat', 'tb_surat_masuk.kategori = tb_kategori_surat.id_kategori');
@@ -28,6 +46,7 @@ class Surat_in_m extends CI_Model
 			$this->db->where('id_surat_in', $id);
 			$this->db->where('status_selesai' == 0);
 		}
+		$this->db->where('LEFT(tgl_catat,4)', $tahun);
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
 		return $query;
@@ -35,6 +54,7 @@ class Surat_in_m extends CI_Model
 
 	public function get2()
 	{
+		$tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from('tb_disposisi_surat');
 		$this->db->join('tb_surat_masuk', 'tb_disposisi_surat.id_surat_in = tb_surat_masuk.id_surat_in');
@@ -42,6 +62,7 @@ class Surat_in_m extends CI_Model
 		$this->db->join('tb_disp_detail_tujuan', 'tb_disposisi_surat.id_disposisi = tb_disp_detail_tujuan.id_disposisi');
 		//$this->db->where('tb_surat_masuk.status_selesai' == 0);
 		$this->db->where('tb_disp_detail_tujuan.id_user', $this->session->userdata('iduser'));
+		$this->db->where('LEFT(tgl_catat,4)', $tahun);
 		$this->db->group_by('no_agenda');
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
@@ -50,6 +71,7 @@ class Surat_in_m extends CI_Model
 
 	public function get3()
 	{
+		$tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from('tb_disposisi_surat');
 		$this->db->join('tb_surat_masuk', 'tb_disposisi_surat.id_surat_in = tb_surat_masuk.id_surat_in');
@@ -103,7 +125,7 @@ class Surat_in_m extends CI_Model
 		$tahun = date('Y');
 		$this->db->select('RIGHT(tb_surat_masuk.no_agenda,4) as no_agenda', false);
 		$this->db->order_by('no_agenda', 'DESC');
-		$this->db->where('LEFT(tgl_surat,4)', $tahun);
+		$this->db->where('LEFT(tgl_catat,4)', $tahun);
 		$this->db->limit(1);
 		$query = $this->db->get($this->table);
 		if ($query->num_rows() <> 0) {

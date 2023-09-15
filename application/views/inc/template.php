@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="<?= base_url() ?>assets/build/images/icon.png">
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/fontawesome-free/css/all.min.css">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -22,11 +22,18 @@
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/dist/css/adminlte.min.css">
+    <!-- Calendar -->
+    <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/fullcalendar/main.css">
 
     <style>
         body {
             font-family: 'Share Tech', sans-serif;
             font-size: .875rem !important;
+        }
+
+        .dropdown-menu {
+            max-height: 500px;
+            overflow-y: auto;
         }
     </style>
 
@@ -35,6 +42,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
+
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -52,64 +60,75 @@
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown scroll-menu scroll-menu-2x">
                     <?php
-                    $CI = &get_instance();
-                    $CI->load->model('surat_in_m');
-                    $CI->load->model('disposisi_m');
-                    if ($this->session->userdata('level_user') == '2') {
-                        $in = $CI->surat_in_m->get_disp();
-                    } else {
-                        $in = $CI->surat_in_m->get2();
-                    }
-                    $jml = 0;
-                    foreach ($in->result() as $r => $d) {
-                        if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
-                            $jml = $jml + 1;
-                        }
-                    } ?>
-                    <!-- <a class="nav-link" href="<?= site_url('surat_masuk?s=n') ?>">
+                    // $CI = &get_instance();
+                    // $CI->load->model('surat_in_m');
+                    // $CI->load->model('disposisi_m');
+                    // if ($this->session->userdata('level_user') == '2') {
+                    //     $in = $CI->surat_in_m->get_disp();
+                    // } else {
+                    //     $in = $CI->surat_in_m->get2();
+                    // }
+                    // $jml = 0;
+                    // foreach ($in->result() as $r => $d) {
+                    //     if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
+                    //         $jml = $jml + 1;
+                    //     }
+                    // } 
+                    // foreach ($row as $r => $data) {
+                    //     echo $data->no_surat . "</br>";
+                    // }
+                    ?>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <!-- <?php $data = hitung_disposisi_2(); ?> -->
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="far fa-bell"></i>
-                        <span class="badge badge-danger navbar-badge"><?= $jml ?></span>
-                    </a> -->
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-danger navbar-badge"><?= $jml ?></span>
+                        <span class="badge badge-danger navbar-badge"><?= $data['jml'] ?></span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg  dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header badge-danger "><?= $jml ?> Surat Masuk</span>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                         <?php
-                        foreach ($in->result() as $r => $data) {
-                            if ($CI->disposisi_m->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) { ?>
+                        $CI = &get_instance();
+                        $CI->load->model('disposisi_m', 'disposisi');
+                        foreach ($data['row'] as $r => $data) {
+                            if ($CI->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) {
+                        ?>
                                 <div class="dropdown-divider"></div>
                                 <a href="<?= site_url('disposisi/' . $data->id_surat_in . '?h=2') ?>" class="dropdown-item">
-                                    <!-- Message Start -->
+
                                     <div class="media">
-                                        <!-- <img src="<?= base_url('assets/theme') ?>/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3"> -->
+                                        <!-- <img src="<?= base_url() ?>assets/build/images/user.png" alt="User Avatar" class="img-size-50 mr-3 img-circle"> -->
                                         <div class="media-body">
-                                            <div class="dropdown-item-title">
-                                                <strong> <?= $data->no_surat ?></strong>
-                                                <?php if ($data->sifat_surat == "Biasa") {
-                                                    echo  '<span class="float-right text-sm text-success"><i class="fas fa-star"></i></span>';
-                                                } elseif ($data->sifat_surat == "Segera") {
-                                                    echo  '<span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>';
-                                                } elseif ($data->sifat_surat == "Penting") {
-                                                    echo  '<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>';
-                                                } else {
-                                                    echo  '<span class="float-right text-sm text-black"><i class="fas fa-star"></i></span>';
-                                                } ?>
-                                            </div>
+                                            <h3 class="dropdown-item-title">
+                                                <?= $data->no_surat ?>
+                                                <?php
+                                                if ($data->sifat_surat == 'Biasa') {
+                                                    echo '<span class="float-right text-sm text-info"><i class="fas fa-star"></i></span>';
+                                                } elseif ($data->sifat_surat == 'Segera') {
+                                                    echo '<span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>';
+                                                } elseif ($data->sifat_surat == 'Rahasia') {
+                                                    echo '<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>';
+                                                } elseif ($data->sifat_surat == 'Penting') {
+                                                    echo '<span class="float-right text-sm text-primary"><i class="fas fa-star"></i></span>';
+                                                }
+                                                ?>
+                                                <!-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> -->
+                                            </h3>
                                             <p class="text-sm"><?= substr($data->perihal, 0, 90) ?></p>
-                                            <p class="text-sm text-muted"><i class="far fa-calendar mr-1"></i> <?= tgl_indo($data->tgl_surat) ?></p>
+                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i><?= tgl_indo($data->tgl_surat) ?></p>
                                         </div>
                                     </div>
-                                    <!-- Message End -->
+
                                 </a>
                         <?php
                             }
-                        } ?>
+                        }
+                        ?>
                         <div class="dropdown-divider"></div>
-                        <a href="<?= site_url('surat_masuk?s=A') ?>" class="dropdown-item dropdown-footer">Lihat Semua Surat</a>
+                        <a href="<?= site_url('surat_masuk?s=n') ?>" class="dropdown-item dropdown-footer">Surat Masuk Belum Disposisi</a>
                     </div>
                 </li>
+
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -187,7 +206,7 @@
 
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
-                <b>Version</b> 1.0
+                <b>Version</b> 2.1
             </div>
             <strong>Copyright &copy; 2021</strong> - Created with <span style="color: #e25555;">&#9829;</span> by IT RSU Muslimat Ponorogo
         </footer>
@@ -214,6 +233,19 @@
     <script src="<?= base_url('assets/theme') ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/theme') ?>/dist/js/adminlte.min.js"></script>
+    <!-- Sweetalert -->
+    <!-- <script src="<?= base_url('assets/build/login') ?>/js/sweetalert.js"></script>
+    <script src="<?= base_url('assets/build/login') ?>/js/bootbox-sweetalert.js"></script> -->
+    <!-- Calendar -->
+    <script src="<?= base_url('assets/theme') ?>/plugins/moment/moment.min.js"></script>
+    <script src="<?= base_url('assets/theme') ?>/plugins/fullcalendar/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".nav  li.disabled a").click(function() {
+                return false;
+            });
+        });
+    </script>
     <?php
     include "js.php";
     ?>

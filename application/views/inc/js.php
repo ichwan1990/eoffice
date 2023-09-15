@@ -51,4 +51,20 @@
         // Ubah "Choose a file" label sesuai dengan nama file yag akan diupload
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
+
+    // function berhasil() {
+    //     swal({
+    //         title: "Berhasil",
+    //         text: "Data Berhasil Disimpan",
+    //         type: "success"
+    //     }, function() {});
+    // }
+
+    // function berhasil() {
+    //     swal({
+    //         title: "Gagal",
+    //         text: "Data Gagal Disimpan",
+    //         type: "error"
+    //     }, function() {});
+    // }
 </script>

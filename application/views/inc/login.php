@@ -27,7 +27,7 @@
                 <a href="<?= base_url() ?>" class="h1"><b>e</b>Office - <i>RSUMP</i></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Silahkan login dengan user dan password anda</p>
 
                 <form action="" method="post" class='form-signin' autocomplete="off">
                     <div class="mb-3">
@@ -81,8 +81,8 @@
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/theme') ?>/dist/js/adminlte.min.js"></script>
 
-    <script src="<?= base_url('assets/build/login') ?>/js/sweetalert.js"></script>
-    <script src="<?= base_url('assets/build/login') ?>/js/bootbox-sweetalert.js"></script>
+    <!-- <script src="<?= base_url('assets/build/login') ?>/js/sweetalert.js"></script>
+    <script src="<?= base_url('assets/build/login') ?>/js/bootbox-sweetalert.js"></script> -->
     <script>
         function forgot() {
             swal({

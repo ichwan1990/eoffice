@@ -8,14 +8,17 @@ class surat_out_m extends CI_Model
 
 	public function get($id = null)
 	{
+		$tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('tb_kategori_surat', 'tb_surat_keluar.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_tujuan_surat', 'tb_surat_keluar.tujuan = tb_tujuan_surat.id_tujuan');
 		$this->db->join('tb_jabatan', 'tb_surat_keluar.pengolah = tb_jabatan.kode_surat', 'left');
+		$this->db->where('LEFT(tgl_surat,4)', $tahun);
 		if ($id != null) {
 			$this->db->where('id_surat_out', $id);
 		}
+		$this->db->where('user_input', $this->session->userdata('iduser'));
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
 		return $query;
@@ -23,11 +26,13 @@ class surat_out_m extends CI_Model
 
 	public function get2($id = null)
 	{
+		$tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('tb_kategori_surat', 'tb_surat_keluar.kategori = tb_kategori_surat.id_kategori');
 		$this->db->join('tb_tujuan_surat', 'tb_surat_keluar.tujuan = tb_tujuan_surat.id_tujuan');
 		$this->db->join('tb_jabatan', 'tb_surat_keluar.pengolah = tb_jabatan.kode_surat', 'left');
+		$this->db->where('LEFT(tgl_surat,4)', $tahun);
 		$this->db->where('user_input', $this->session->userdata('iduser'));
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
@@ -63,12 +68,13 @@ class surat_out_m extends CI_Model
 		return $query;
 	}
 
-	function no_agenda()
+	function no_agenda($id = null)
 	{
 		$tahun = date('Y');
 		$this->db->select('RIGHT(tb_surat_keluar.no_agenda,3) as no_agenda', false);
 		$this->db->order_by('no_agenda', 'DESC');
 		$this->db->where('LEFT(tgl_surat,4)', $tahun);
+		$this->db->where('user_input', $id);
 		$this->db->limit(1);
 		$query = $this->db->get($this->table);
 		if ($query->num_rows() <> 0) {
@@ -81,11 +87,15 @@ class surat_out_m extends CI_Model
 		return $kodetampil;
 	}
 
-	function cek_no_agenda($no, $id = null)
+	function cek_no_agenda($no, $pengolah, $id = null)
 	{
+		$tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from($this->table);
+		$this->db->where('user_input', $this->session->userdata('iduser'));
 		$this->db->where('no_agenda', $no);
+		$this->db->where('pengolah', $pengolah); //Perbaikan untuk nomer agenda tidak bisa masuk 150823
+		$this->db->where('LEFT(tgl_surat,4)', $tahun);
 		if ($id != null) {
 			$this->db->where('id_surat_out !=', $id);
 		}

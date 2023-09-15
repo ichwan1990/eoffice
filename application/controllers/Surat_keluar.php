@@ -127,7 +127,7 @@ class Surat_keluar extends CI_Controller
 				$config['file_name']     = 'Surat-Out-' . date('ymd') . '-' . substr(md5(rand()), 0, 10);
 				$config['max_size']		 = '20480';
 				$this->load->library('upload', $config);
-				if ($this->surat_out->cek_no_agenda($this->input->post('no_agenda'))->num_rows() > 0) {
+				if ($this->surat_out->cek_no_agenda($this->input->post('no_agenda'), $this->input->post('pengolah'))->num_rows() > 0) {
 					echo "<script>alert('No. Agenda sudah diinput sebelumnya'); window.location='add';</script>";
 				} else {
 					if ($this->upload->do_upload('file_surat')) {
@@ -142,8 +142,8 @@ class Surat_keluar extends CI_Controller
 					}
 				}
 			} else {
-				if ($this->surat_out->cek_no_agenda($this->input->post('no_agenda'))->num_rows() > 0) {
-					echo "<script>alert('No. Agenda sudah diinput sebelumnya'); window.location='add';</script>";
+				if ($this->surat_out->cek_no_agenda($this->input->post('no_agenda'), $this->input->post('pengolah'))->num_rows() > 0) { //Perbaikan untuk nomer agenda tidak bisa masuk 150823
+					echo "<script>alert('No. Agenda sudah diinput sebelumnya *'); window.location='add';</script>";
 				} else {
 					$data = $this->input->post(null, TRUE);
 					$data['file'] = '';
@@ -197,16 +197,16 @@ class Surat_keluar extends CI_Controller
 	{
 		//cek_level_1();
 		if ($id != '') {
-			if ($this->session->userdata('level_user') == '1') {
-				$surat_out = $this->surat_out->get($id)->row();
-				if ($surat_out->file_surat != "") {
-					$target_file = './uploads/surat_keluar/' . $surat_out->file_surat;
-					if (file_exists($target_file)) {
-						unlink($target_file);
-					}
+			//if ($this->session->userdata('level_user') == '1') {
+			$surat_out = $this->surat_out->get($id)->row();
+			if ($surat_out->file_surat != "") {
+				$target_file = './uploads/surat_keluar/' . $surat_out->file_surat;
+				if (file_exists($target_file)) {
+					unlink($target_file);
 				}
-				$this->surat_out->del($id);
 			}
+			$this->surat_out->del($id);
+			//}
 		}
 		redirect('surat_keluar');
 	}
