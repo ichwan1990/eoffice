@@ -54,7 +54,7 @@
             <div class="col-6 btn-group"> -->
                 <!-- <input type="text" class="form-control" placeholder=".col-5"> -->
                 <?php
-                if ($this->disposisi->cek_ada_disposisi($this->uri->segment('2'))->num_rows() == 0 && $this->session->userdata('level_jabatan') != 0) { ?>
+                if ($this->disposisi->cek_ada_disposisi($this->uri->segment('2'))->num_rows() == 0 && $this->session->userdata('level_jabatan') != 0 ) { ?>
                     <a href="<?= site_url('disposisi/' . $this->uri->segment(2) . '/add') ?>" class="btn btn-sm btn-success float-right"><i class="fa fa-plus"></i> Tambah Disposisi</a>
                 <?php } ?>
                 <!-- <input type="text" class="form-control" placeholder=".col-4"> -->

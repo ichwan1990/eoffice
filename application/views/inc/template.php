@@ -8,12 +8,15 @@
     <link rel="icon" type="image/png" href="<?= base_url() ?>assets/build/images/icon.png">
 
     <!-- Google Font: Source Sans Pro -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/fontawesome-free/css/all.min.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Select2 -->
+    <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/theme') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- DataTables -->
@@ -30,7 +33,7 @@
             font-family: 'Share Tech', sans-serif;
             font-size: .875rem !important;
         }
-
+        
         .dropdown-menu {
             max-height: 500px;
             overflow-y: auto;
@@ -42,7 +45,6 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed">
-
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -58,27 +60,6 @@
             <ul class="navbar-nav ml-auto">
 
                 <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown scroll-menu scroll-menu-2x">
-                    <?php
-                    // $CI = &get_instance();
-                    // $CI->load->model('surat_in_m');
-                    // $CI->load->model('disposisi_m');
-                    // if ($this->session->userdata('level_user') == '2') {
-                    //     $in = $CI->surat_in_m->get_disp();
-                    // } else {
-                    //     $in = $CI->surat_in_m->get2();
-                    // }
-                    // $jml = 0;
-                    // foreach ($in->result() as $r => $d) {
-                    //     if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
-                    //         $jml = $jml + 1;
-                    //     }
-                    // } 
-                    // foreach ($row as $r => $data) {
-                    //     echo $data->no_surat . "</br>";
-                    // }
-                    ?>
-                </li>
 
                 <li class="nav-item dropdown">
                     <!-- <?php $data = hitung_disposisi_2(); ?> -->
@@ -87,9 +68,13 @@
                         <span class="badge badge-danger navbar-badge"><?= $data['jml'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                        <?php if ($this->session->userdata('level_user') == '1') {  ?>
+                            <a href="<?= site_url('surat_masuk/add') ?>" class="dropdown-item dropdown-header bg-primary">Tambah Surat Masuk</a>
                         <?php
+                        }
                         $CI = &get_instance();
                         $CI->load->model('disposisi_m', 'disposisi');
+                        $no = 0;
                         foreach ($data['row'] as $r => $data) {
                             if ($CI->disposisi->cek_ada_disposisi($data->id_surat_in)->num_rows() == 0) {
                         ?>
@@ -99,11 +84,11 @@
                                     <div class="media">
                                         <!-- <img src="<?= base_url() ?>assets/build/images/user.png" alt="User Avatar" class="img-size-50 mr-3 img-circle"> -->
                                         <div class="media-body">
-                                            <h3 class="dropdown-item-title">
+                                            <p class="dropdown-item-title text-bold text-secondary">
                                                 <?= $data->no_surat ?>
                                                 <?php
                                                 if ($data->sifat_surat == 'Biasa') {
-                                                    echo '<span class="float-right text-sm text-info"><i class="fas fa-star"></i></span>';
+                                                    echo '<span class="float-right text-sm text-default"><i class="fas fa-star"></i></span>';
                                                 } elseif ($data->sifat_surat == 'Segera') {
                                                     echo '<span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>';
                                                 } elseif ($data->sifat_surat == 'Rahasia') {
@@ -113,7 +98,7 @@
                                                 }
                                                 ?>
                                                 <!-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> -->
-                                            </h3>
+                                            </p>
                                             <p class="text-sm"><?= substr($data->perihal, 0, 90) ?></p>
                                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i><?= tgl_indo($data->tgl_surat) ?></p>
                                         </div>
@@ -125,7 +110,7 @@
                         }
                         ?>
                         <div class="dropdown-divider"></div>
-                        <a href="<?= site_url('surat_masuk?s=n') ?>" class="dropdown-item dropdown-footer">Surat Masuk Belum Disposisi</a>
+                        <a href="<?= site_url('surat_masuk?s=n') ?>" class="dropdown-item dropdown-footer bg-warning">Surat Masuk Belum Disposisi</a>
                     </div>
                 </li>
 
@@ -218,8 +203,8 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
-
+    
+  
     <!-- Bootstrap 4 -->
     <script src="<?= base_url('assets/theme') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
@@ -233,19 +218,10 @@
     <script src="<?= base_url('assets/theme') ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/theme') ?>/dist/js/adminlte.min.js"></script>
-    <!-- Sweetalert -->
-    <!-- <script src="<?= base_url('assets/build/login') ?>/js/sweetalert.js"></script>
-    <script src="<?= base_url('assets/build/login') ?>/js/bootbox-sweetalert.js"></script> -->
+    <script src="<?= base_url('assets/theme') ?>/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- Calendar -->
     <script src="<?= base_url('assets/theme') ?>/plugins/moment/moment.min.js"></script>
     <script src="<?= base_url('assets/theme') ?>/plugins/fullcalendar/main.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(".nav  li.disabled a").click(function() {
-                return false;
-            });
-        });
-    </script>
     <?php
     include "js.php";
     ?>

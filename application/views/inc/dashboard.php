@@ -1,22 +1,20 @@
 <div class="row">
     <?php
-    //     $CI = &get_instance();
-    //     $CI->load->model('surat_in_m');
-    //     $CI->load->model('disposisi_m');
-    //     $CI->load->library('hitung');
-    //     if ($this->session->userdata('level_user') == '2') {
-    //         $in = $CI->surat_in_m->get_disp();
-    //     } else {
-    //         $in = $CI->surat_in_m->get2();
-    //     }
-    //    $jml = 0;
-    //     foreach ($in->result() as $r => $d) {
-    //         if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
-    //             $jml = $jml + 1;
-    //       }
-    //     }
-    //     var_dump($CI->hitung->hitung_belum_disposisi());
-    $data = hitung_disposisi_2();
+   // $CI = &get_instance();
+    //$CI->load->model('surat_in_m');
+    //$CI->load->model('disposisi_m');
+    //if ($this->session->userdata('level_user') == '2') {
+    //    $in = $CI->surat_in_m->get_disp();
+   // } else {
+    //    $in = $CI->surat_in_m->get2();
+    //}
+   //$jml = 0;
+    //foreach ($in->result() as $r => $d) {
+    //    if ($CI->disposisi_m->cek_ada_disposisi($d->id_surat_in)->num_rows() == 0) {
+    //        $jml = $jml + 1;
+    //  }
+    //}
+        $data = hitung_disposisi_2();
     ?>
     <div class="col-lg-3 col-6">
         <!-- small box -->
@@ -39,7 +37,7 @@
         </div>
     </div>
     <!-- ./col -->
-    <?php if ($this->session->userdata('level_user') != '0') { ?>
+        <?php if ($this->session->userdata('level_user') != '0') { ?>
         <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
@@ -75,22 +73,12 @@
         </div>
     <?php } ?>
     <!-- ./col -->
-    <?php
-    if ($this->session->userdata('level_user') <> '0' || $this->session->userdata('level_user') <> '1' || $this->session->userdata('level_user') <> '2') {
-    ?>
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3><?= $surat_keluar ?></h3>
 
-                    <p>Total Surat Keluar</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="<?= site_url('surat_keluar') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    <?php } ?>
+<div class="col-12">
+    <div class="callout callout-danger">
+        <h5><i class="fas fa-info"></i> Informasi:</h5>
+        <b>eOffice Versi 2.1 Tahun 2023</b>
+        <p>Aplikasi ini masih dalam pengembangan dan optimalisasi peforma sehingga apabila ada ditemukan error silahkan menghubungi Tim IT (ext.220). Terimakasih</p>
+    </div>    
 </div>
+

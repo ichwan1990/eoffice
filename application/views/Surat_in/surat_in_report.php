@@ -1,13 +1,5 @@
-<div class="page-title">
-	<div class="title_left">
-		<h3>Laporan Surat Masuk</h3>
-	</div>
-</div>
-
-<div class="clearfix"></div>
-
-<div class="x_panel">
-    <div class="x_content">
+<div class="card">
+    <div class="card-header">
         <div class="row no-print">
             <div class="col-sm-12 col-xs-12"> 
                 <form action="" method="post">
@@ -20,7 +12,7 @@
                         $hri2 = null; $bln2 = null; $thn2 = null;
                     } ?>
                     <div class="row">
-                        <div class="col-sm-5 col-xs-12">
+                        <div class="col-md-5">
                             <div class="row">
                                 <div class="col-sm-3 col-xs-12">
                                     <div class="form-group">
@@ -64,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+                        <div class="col-md-5">
                             <div class="row">
                                 <div class="col-sm-3 col-xs-12">
                                     <div class="form-group">
@@ -107,20 +99,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-1 col-xs-12">
-                            <div class="row">
-                                <div class="form-group">
-                                    <button type="submit" name="s" value="1" class="btn btn-success btn-block">Filter</button>
-                                </div>
-                                <div class="form-group">
-                                    <a onclick="window.print()" class="btn btn-primary btn-block">Cetak</a>
-                                </div>
+                        <div class="col-md-2 mt-4">
+                            <div class="btn-group w-20">
+                                    <button type="submit" name="s" value="1" class="btn btn-success">Filter</button>
+                                    <button onclick="window.print()" class="btn btn-primary">Cetak</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+    </div>
+    <div class="card-body">
         <?php if(isset($_POST['s'])) {
             $dari = $_POST['t']."-".$_POST['b']."-".$_POST['h'];
             $sampai = $_POST['t2']."-".$_POST['b2']."-".$_POST['h2'];
@@ -215,6 +205,6 @@
                 </tbody>
             </table>
             </div>
-        <?php } ?>
+        <?php } ?>        
     </div>
 </div>

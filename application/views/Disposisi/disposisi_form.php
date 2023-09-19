@@ -40,25 +40,32 @@
                             <label>
                                 <input type="radio" value="1" name="input_teruskan" id="input_teruskan1" required <?= $row->input_teruskan == "1" || $row->input_teruskan == null ? "checked" : null ?>> Diteruskan kepada :
                             </label>
+                            
+                            <select class="tujuan" name="tujuan[]" multiple="multiple" style="width: 100%">
                             <?php
                             $no = 1;
                             if ($tujuan != null) {
                                 foreach ($tujuan as $tjn) { ?>
-                                    <div class="checkbox" style="margin-left: 15px;">
+                                    <!--<div class="checkbox" style="margin-left: 15px;">-->
                                         <!-- <label> -->
-                                        <input type="checkbox" name="tujuan[]" id="tujuan-<?= $no++ ?>" class="tujuan" value="<?= $tjn->id_user ?>"> <?= $tjn->nama_jabatan ?><br>
-                                        <p class="font-weight-bold"><?= $tjn->nama_lengkap ?></p>
+                                    <!--    <input type="checkbox" name="tujuan[]" id="tujuan-<?= $no++ ?>" class="tujuan" value="<?= $tjn->id_user ?>"> <?= $tjn->nama_jabatan ?><br>-->
+                                    <!--    <p class="font-weight-bold"><?= $tjn->nama_lengkap ?></p>-->
                                         <!-- </label> -->
-                                    </div>
+                                    <!--</div>-->
+                                    
+                                    
+                                      <option value="<?= $tjn->id_user ?>"><?= $tjn->nama_jabatan ." - ". $tjn->nama_lengkap ?></option>
+
                             <?php
                                 }
                             } else {
                                 echo "<br><span>Belum ada user pegawai</span>";
                             }
                             ?>
+                            </select>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <!--</div>-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
                         <div class="form-group">
                             <label>
                                 <input type="radio" value="2" name="input_teruskan" id="input_teruskan2" <?= $row->input_teruskan == "2" ? "checked" : null ?>> Arsipkan
@@ -80,7 +87,7 @@
                         </div>
                         <div class="form-group">
                             <label>Catatan :</label>
-                            <textarea name="catatan" class="form-control" rows="7"><?= $row->catatan ?></textarea>
+                            <textarea name="catatan" class="form-control" rows="7" id="summernote" style="display: none;"><?= $row->catatan ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -106,6 +113,7 @@
             } else if ($('#input_teruskan2').is(':checked')) {
                 $('.tujuan').attr('onclick', 'return false');
                 $('.tujuan').prop('checked', false);
+                $('.tujuan').val(null).trigger('change');
             }
         }
 

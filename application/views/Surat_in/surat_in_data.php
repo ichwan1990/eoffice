@@ -2,7 +2,7 @@
     <div class="card-header">
         <?php if ($this->session->userdata('level_user') == '1') { ?>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-1">
                     <form action="<?= site_url('surat_masuk') ?>" method="get">
                         <div class="input-group input-group-sm">
                             <select name="s" class="form-control" required>
@@ -18,7 +18,34 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6 mt-1">
+                
+                <div class="col-md-3">
+                    <form action="" method="POST">
+                        <div class="input-group input-group-sm">
+                            <select name="s" class="form-control" required>
+                                <?php 
+                                
+                                if(isset($_POST['s'])) {
+                                $tahun = $_POST['s'];    
+                                } else {
+                                $tahun = date('Y'); 
+                                }
+                                
+                                for ($x = -1; $x <= 2; $x++) {
+                                    ?>
+                                 <option value="<?= $tahun + $x ?>" <?= $x == 0 ? 'selected' : null ?>><?= $tahun + $x ?></option>
+                                <?php 
+                                   }
+                                ?>
+                            </select>
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="col-md-3 mt-1">
                     <a href="<?= site_url('surat_masuk/add') ?>" class="btn btn-sm btn-success float-right"><i class="fa fa-plus"></i> Tambah Surat Masuk</a>
                 </div>
             </div>
@@ -57,6 +84,12 @@
                 </thead>
                 <tbody>
                     <?php
+                    if(isset($_POST['s'])) {
+                     $tahun = $_POST['s'];
+                    // $sampai = $_POST['t2']."-".$_POST['b2']."-".$_POST['h2'];
+                    $sql = $this->surat_in->get_period_tahun($tahun);
+                    $row = $sql->result();
+                    }
                     $no = 1;
                     $nosurat = 1;
                     foreach ($row as $r => $data) {

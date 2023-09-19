@@ -159,11 +159,9 @@ $page3 = $this->uri->segment(3); ?>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <?php $data = hitung_disposisi_2(); ?>
                         <a href="<?= site_url('surat_masuk?s=n') ?>" class="nav-link <?= ($page == 'surat_masuk' && @$_GET['s'] == 'n')  ? "active" : null ?>">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Belum Disposisi</p>
-                            <span class="right badge badge-danger"><?= $data['jml'] ?></span>
                         </a>
                     </li>
                     <li class="nav-item">

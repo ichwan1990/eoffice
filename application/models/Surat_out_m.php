@@ -18,7 +18,6 @@ class surat_out_m extends CI_Model
 		if ($id != null) {
 			$this->db->where('id_surat_out', $id);
 		}
-		$this->db->where('user_input', $this->session->userdata('iduser'));
 		$this->db->order_by('no_agenda', 'desc');
 		$query = $this->db->get();
 		return $query;
@@ -89,7 +88,7 @@ class surat_out_m extends CI_Model
 
 	function cek_no_agenda($no, $pengolah, $id = null)
 	{
-		$tahun = date('Y');
+	    $tahun = date('Y');
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->where('user_input', $this->session->userdata('iduser'));

@@ -81,8 +81,8 @@
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/theme') ?>/dist/js/adminlte.min.js"></script>
 
-    <!-- <script src="<?= base_url('assets/build/login') ?>/js/sweetalert.js"></script>
-    <script src="<?= base_url('assets/build/login') ?>/js/bootbox-sweetalert.js"></script> -->
+    <script src="<?= base_url('assets/build/login') ?>/js/sweetalert.js"></script>
+    <script src="<?= base_url('assets/build/login') ?>/js/bootbox-sweetalert.js"></script>
     <script>
         function forgot() {
             swal({

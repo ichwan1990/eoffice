@@ -52,19 +52,33 @@
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 
-    // function berhasil() {
-    //     swal({
-    //         title: "Berhasil",
-    //         text: "Data Berhasil Disimpan",
-    //         type: "success"
-    //     }, function() {});
-    // }
+    function berhasil() {
+        swal({
+            title: "Berhasil",
+            text: "Data Berhasil Disimpan",
+            type: "success"
+        }, function() {});
+    }
 
-    // function berhasil() {
-    //     swal({
-    //         title: "Gagal",
-    //         text: "Data Gagal Disimpan",
-    //         type: "error"
-    //     }, function() {});
-    // }
+    function berhasil() {
+        swal({
+            title: "Gagal",
+            text: "Data Gagal Disimpan",
+            type: "error"
+        }, function() {});
+    }
+    
+    $(document).ready(function() {
+        $('#summernote').summernote(
+              {
+              height: 300,
+              focus: true
+              });
+    });
+    
+    $(document).ready(function() {
+        $('.tujuan').select2({
+             width: 'resolve'
+        });
+    });
 </script>

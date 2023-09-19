@@ -2,8 +2,10 @@
     <div class="card-header">
         <a href="<?= site_url('surat_masuk') ?>?s=<?= @$_GET['s'] ?>" class="btn btn-sm btn-dark float-right"><i class="fa fa-angle-left"></i> Kembali</a>
     </div>
-    <?php $attr = array('class' => 'form-horizontal form-label-left', 'autocomplete' => 'off');
-    echo form_open_multipart('surat_masuk/proses', $attr); ?>
+    <?php 
+        $attr = array('class' => 'form-horizontal form-label-left', 'autocomplete' => 'off');
+        echo form_open_multipart('surat_masuk/proses', $attr); 
+    ?>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">

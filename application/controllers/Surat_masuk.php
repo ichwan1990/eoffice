@@ -114,7 +114,8 @@ class Surat_masuk extends CI_Controller {
 				$config['upload_path']   = './uploads/surat_masuk/';
 				$config['allowed_types'] = 'jpg|png|jpeg|pdf|docx|doc|xls|xlsx|txt|ppt|pptx|rtf';
 				$config['file_name']     = 'Surat-In-'.date('ymd').'-'.substr(md5(rand()),0,10);
-				$config['max_size']		 = '20480';
+				$config['max_size']		 = '10240';
+				$config['create_thumb']  = 'False';
 				$this->load->library('upload', $config);
 				if($this->surat_in->cek_no_agenda($this->input->post('no_agenda'))->num_rows() > 0) {
 	                echo "<script>alert('No. Agenda sudah diinput sebelumnya'); window.location='add';</script>";
@@ -147,7 +148,7 @@ class Surat_masuk extends CI_Controller {
 				$config['upload_path']   = './uploads/surat_masuk/';
 				$config['allowed_types'] = 'jpg|png|jpeg|pdf|docx|doc|xls|xlsx|txt|ppt|pptx|rtf';
 				$config['file_name']     = 'Surat-In-'.date('ymd').'-'.substr(md5(rand()),0,10);
-				$config['max_size']		 = '20480';
+				$config['max_size']		 = '10240';
 				$this->load->library('upload', $config);
 				if($this->surat_in->cek_no_agenda($this->input->post('no_agenda'), $this->input->post('id'))->num_rows() > 0) {
 	                echo "<script>alert('No. Agenda sudah diinput sebelumnya'); window.location='edit/".$this->input->post('id')."';</script>";
