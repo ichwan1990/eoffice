@@ -59,7 +59,7 @@ class Disposisi_m extends CI_Model {
 		if($this->session->userdata('level_user') != 1) {
 			$this->db->where('user_input', $this->session->userdata('iduser'));
 		}
-		$this->db->group_by('id_surat_in');
+ 		$this->db->group_by('id_surat_in');
 		$query = $this->db->get();
 		return $query;
 	}

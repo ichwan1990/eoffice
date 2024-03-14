@@ -1,38 +1,49 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Surat_masuk extends CI_Controller {
+class Dokumen extends CI_Controller {
 
-	var $title = "Surat Masuk";
+	var $title = "Kebijakan";
 
 	function __construct()
 	{
 		parent::__construct();
 		cek_session();
-		
 		$this->load->model('surat_in_m', 'surat_in');
-		
 		$this->load->model('disposisi_m', 'disposisi');
+		$this->load->model('dokumen_m', 'kebijakan');
 	}
 
 	public function index()
 	{
 		if($this->session->userdata('level_user') == '0') { redirect('dashboard'); }
-		
 		$this->template->set('title', $this->title);
 
 		if($this->session->userdata('level_user') == '1') {
-		    $data['row'] = $this->surat_in->get_tatausaha()->result();
+		    $data['row'] = $this->kebijakan->get()->result();
 		} else if ($this->session->userdata('level_user') == '2') {
-			$data['row'] = $this->surat_in->get()->result();
+			$data['row'] = $this->kebijakan->get()->result();
 		} else {
-			$data['row'] = $this->surat_in->get_surat_all_pegawai()->result();
-			//$data['row'] = $this->surat_in->get2->result();
+			$data['row'] = $this->kebijakan->get()->result();
 		}
-		
-		$this->template->load('inc/template', 'Surat_in/surat_in_data', $data);
+		$this->template->load('inc/template', 'Dokumen/dokumen_kebijakan_data', $data);
     }
+    
+    	public function kebijakan()
+	{
+		if($this->session->userdata('level_user') == '0') { redirect('dashboard'); }
+		$this->template->set('title', $this->title);
 
+		if($this->session->userdata('level_user') == '1') {
+		    $data['row'] = $this->kebijakan->get()->result();
+		} else if ($this->session->userdata('level_user') == '2') {
+			$data['row'] = $this->kebijakan->get()->result();
+		} else {
+			$data['row'] = $this->kebijakan->get()->result();
+		}
+		$this->template->load('inc/template', 'Dokumen/dokumen_kebijakan_data', $data);
+    }
+/*
     public function add()
     {
     	if($this->session->userdata('level_user') == '0') { redirect('dashboard'); }
@@ -189,31 +200,33 @@ class Surat_masuk extends CI_Controller {
 		}
 	}
 
+*/
+
     public function del($id)
 	{
 		if($this->session->userdata('level_user') == '0') { redirect('dashboard'); }
 		if($id != '') {
 			if($this->session->userdata('level_user') == '1') {
-				$surat_in = $this->surat_in->get($id)->row();
-				if($surat_in->file_surat != "") {
-					$target_file = './uploads/surat_masuk/'.$surat_in->file_surat;
+				$kebijakan = $this->kebijakan->get($id)->row();
+				if($kebijakan->file_kebijakan != "") {
+					$target_file = './uploads/kebijakan/'.$kebijakan->file_kebijakan;
 					if(file_exists($target_file)) {
 						unlink($target_file);
 					}
 				}
-				if($this->surat_in->del($id) == 1) {
-					redirect('surat_masuk');
+				if($this->kebijakan->del($id) == 1) {
+					redirect('dokumen/kebijakan');
 				} else {
-					echo "<script>alert('Surat masuk tidak dapat dihapus karena sudah di disposisikan'); window.location='".site_url('surat_masuk')."';</script>";
+					echo "<script>alert('Dokumen Kebijakan tidak dapat dihapus'); window.location='".site_url('dokumen/kebijakan')."';</script>";
 				}
 			}
 		}
 	}
 
-	public function report()
+	public function edaran()
 	{
 		$this->template->set('title', $this->title);
-        $this->template->load('inc/template', 'Surat_in/surat_in_report'); 
+        $this->template->load('inc/template', 'Dokumen/dokumen_edaran_data'); 
 	}
 
 }
